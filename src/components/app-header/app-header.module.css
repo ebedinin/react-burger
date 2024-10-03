@@ -1,0 +1,9 @@
+.header{
+    display: flex;
+}
+.header_item {
+    display: inline
+}
+.header_item div {
+    display: flex inline;
+}
