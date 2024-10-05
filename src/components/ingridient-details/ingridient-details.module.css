@@ -1,0 +1,11 @@
+.header {
+
+}
+.text {
+    float: left;
+    /*composes: text text_type_main-large;*/
+}
+
+.close {
+    float: right;
+}
