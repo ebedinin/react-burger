@@ -20,7 +20,7 @@ const BurgerConstructor = (props)=>{
             {
                 props.burger_ingredient.map((item)=>{
                     return (
-                        <div>
+                        <div key={item._id}>
                         <DragIcon type="primary" />
                         <ConstructorElement text={item.name}
                             price={item.price}
@@ -31,7 +31,7 @@ const BurgerConstructor = (props)=>{
                 })
             }
             <div className='pl-8'>
-            <ConstructorElement type="bottom"                
+            <ConstructorElement type="bottom"
                 isLocked={true}
                 text={props.bun_bottom.name}
                 price={props.bun_bottom.price}

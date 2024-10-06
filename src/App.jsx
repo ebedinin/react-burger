@@ -20,7 +20,8 @@ function App() {
   useEffect(()=>{
     fetch(url)
     .then(response => response.json())
-    .then(data  => setState({...state, loading: false, ingridients:data.data}))
+    .then(data  => setState({...state, loading: false,isError:false, ingridients:data.data}))
+    .catch(()=> setState({...state,isError:true}))
   },[])
   const burger_ingredient_bun = state.ingridients.filter((item)=>item.type==="bun");
   const burger_ingredient_sauce = state.ingridients.filter((item)=>item.type==="sauce");
@@ -52,7 +53,7 @@ setState({
   return (
     <div className={style.app}>
       <AppHeader />
-      {!state.loading&&
+      {!state.isError&&!state.loading&&
       <div className={style.wrapper}>        
         <div className={style.item} >
           <BurgerIngredients show_ingridient={show_ingridient} close_ingridient={close_ingridient} burger_ingredients={state.ingridients}/>
@@ -61,6 +62,9 @@ setState({
           <BurgerConstructor bun_top={bun_top} bun_bottom={bun_bottom} burger_ingredient={burger_ingredient} create_order={show_order}/>
         </div>
       </div>
+    }
+    {state.isError&&
+    <p className="text text_type_main-large text_color_inactive">Ошибка загрузки ингридиентов</p>
     }
     {state.ingridientDetail && 
       <Modal modal_root={modal_root} header_name={'Детали ингридиента'} close={close_ingridient}>
