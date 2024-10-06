@@ -43,7 +43,7 @@ const BurgerConstructor = (props)=>{
                 <div className=''>
                     <span>610</span>
                     <CurrencyIcon type="primary" />
-                    <Button htmlType="button" type="primary" size="large"> 
+                    <Button htmlType="button" type="primary" size="large" onClick={props.create_order}> 
                         Оформить заказ
                     </Button >
                 </div>

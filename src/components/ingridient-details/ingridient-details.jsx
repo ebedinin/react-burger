@@ -1,18 +1,21 @@
 import React from 'react';
-import {Modal} from './../modal/modal'
 import style from './ingridient-details.module.css'
 
 const modalRoot = document.getElementById("modal");
 
 const IngredientDetails = (props) => {
     //const [state, setState] = React.useState({isC})
-    console.log(modalRoot)
     return (
-        <Modal modal_root={modalRoot} >
-            <div className={style.header}>
-                <div className={style.text}>Детали ингридиета</div><div className={style.close}>X</div>
+        <div>
+            <img src={props.ingridient.image_large} />
+            <span>{props.ingridient.name}</span><br/>
+            <div className={style.nutrition_facts}>
+                <div><span>Калорий, ккал</span><br/><span>{props.ingridient.calories}</span></div>
+                <div><span>Белки, г</span><br/><span>{props.ingridient.proteins}</span></div>
+                <div><span>Жиры, г</span><br/><span>{props.ingridient.fat}</span></div>
+                <div><span>Углеводы, г</span><br/><span>{props.ingridient.carbohydrates}</span></div>
             </div>
-        </Modal>
+        </div>
     )
 }
 

@@ -4,6 +4,7 @@ import {BurgerIngredients} from './components/burger-ingredients/burger-ingredie
 import style from './app.module.css'
 import {BurgerConstructor} from './components/burger-constructor/burger-constructor.jsx'
 import {IngredientDetails} from './components/ingridient-details/ingridient-details.jsx'
+import {OrderDetails} from './components/order-details/order-details.jsx'
 import {Modal} from './components/modal/modal.jsx'
 
 const url="https://norma.nomoreparties.space/api/ingredients"
@@ -13,7 +14,8 @@ function App() {
     loading: true,
     isError: false,
     ingridientDetail: null,
-    ingridients: []
+    ingridients: [],
+    order: null
   })
   useEffect(()=>{
     fetch(url)
@@ -28,16 +30,24 @@ function App() {
   const burger_ingredient = [...burger_ingredient_main.slice(0,2),...burger_ingredient_sauce.splice(0,2)]
   
   const show_ingridient = (id)=>{
-    
-    console.log(state.ingridients.filter((item)=>item._id===id)[0])
-    setState({
+        setState({
       ...state,ingridientDetail:state.ingridients.filter((item)=>item._id===id)[0]
     })    
   }
-  const close_ingridient = ()=>{
+  const close_ingridient = (e)=>{
     setState({
     ...state,ingridientDetail:null
   })
+  }
+  const show_order = ()=>{
+    setState({
+  ...state,order:{number: "034536"}
+})    
+}
+const close_order = (e)=>{
+setState({
+...state,order:null
+})
 }
   return (
     <div className={style.app}>
@@ -48,13 +58,18 @@ function App() {
           <BurgerIngredients show_ingridient={show_ingridient} close_ingridient={close_ingridient} burger_ingredients={state.ingridients}/>
         </div>
         <div className={style.item}>
-          <BurgerConstructor bun_top={bun_top} bun_bottom={bun_bottom} burger_ingredient={burger_ingredient}/>
+          <BurgerConstructor bun_top={bun_top} bun_bottom={bun_bottom} burger_ingredient={burger_ingredient} create_order={show_order}/>
         </div>
       </div>
     }
     {state.ingridientDetail && 
-        <Modal modal_root={modal_root} >
+      <Modal modal_root={modal_root} header_name={'Детали ингридиента'} close={close_ingridient}>
           <IngredientDetails ingridient={state.ingridientDetail}/>
+        </Modal>
+    }
+    {state.order && 
+      <Modal modal_root={modal_root} header_name={''} close={close_order}>
+          <OrderDetails order={state.order}/>
         </Modal>
     }
     </div>
