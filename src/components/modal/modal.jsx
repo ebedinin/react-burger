@@ -2,13 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import style from './modal.module.css'
 import { CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components'
-import { ModalOverlay } from './modal-overlay/modal-overlay';
 const Modal = (props) => {
-    
+/*
+
+        <div className={style.modal}>
+            <div > </div>
+                
+        </div> 
+        )
+*/
     const press_esc = React.useCallback((e)=>{
         if (e.key === "Escape") {
            props.close()
-          }          
+          }
+          
+    }
+    )
+    const click_modal_overlay = React.useCallback((e)=>{
+        if (e.target.className === style.modal_overlay) {
+           props.close()
+          }
+          
     }
     )
     React.useEffect(()=>{
@@ -18,14 +32,14 @@ const Modal = (props) => {
 
     return ReactDOM.createPortal(
         <div className={style.root_modal}>
-            <ModalOverlay close={props.close}>
+            <div className={style.modal_overlay} onClick={click_modal_overlay}>
                 <div className={style.modal}>
                     <div className={style.header}>
                         <div className={style.text}>{props.header_name}</div><CloseIcon className={style.close} type="primary" onClick={props.close} />
                     </div>
                     {props.children}
                 </div>
-            </ModalOverlay>
+            </div>
         </div>,
         props.modal_root
     )
