@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import style from './app-header.module.css'
 import { BurgerIcon, ListIcon, ProfileIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 const AppHeader = (props)=>{
-    /*{display:"inline"} */
     return (
         <header className={`${style.header} pt-5`} >
             <nav > 
@@ -29,5 +29,9 @@ const AppHeader = (props)=>{
         </header>
     )
 };
+
+AppHeader.propTypes = {
+    
+}
 
 export default AppHeader;

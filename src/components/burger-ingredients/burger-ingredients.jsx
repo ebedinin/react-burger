@@ -1,23 +1,19 @@
-
 import React from 'react';
+import PropTypes from 'prop-types';
+import {ingridientType} from './../../utils/data.js'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import {BurgerIngridientItems} from './burger-ingridient-items/burger-ingridient-items.jsx'
-import {IngredientDetails} from './../ingridient-details/ingridient-details.jsx'
-// import {burger_ingredients} from './../../utils/data.js' 
 import style from './burger-ingredients.module.css'
 
 const BurgerIngredients = (props) =>{
     const [section, setStateSection] = React.useState("bun");
-    const changeSection = (e)=>{
-        setStateSection(e.target.value)
-    }
-    const burger_ingredient_bun =props.burger_ingredients.filter((item)=>item.type==="bun");
-    const burger_ingredient_sauce = props.burger_ingredients.filter((item)=>item.type==="sauce");
-    const burger_ingredient_main = props.burger_ingredients.filter((item)=>item.type==="main");
-    const ingidient_tab =(
+    const buns = props.ingredients.filter((item)=>item.type==="bun");
+    const sauces = props.ingredients.filter((item)=>item.type==="sauce");
+    const main = props.ingredients.filter((item)=>item.type==="main");
+    const tabs =(
         <>
-            <h2 className='mt-10 mb-5' >Собери бургер</h2>
-            <div className={`${style.tab} mb-10`}>
+            <h2 className='mt-10 mb-5'>Собери бургер</h2>
+            <div className={`${style.tabs} mb-10`}>
                 <Tab value="bun" active={section === "bun"} onClick={setStateSection}>Булки</Tab>
                 <Tab value="sauce" active={section === "sauce"} onClick={setStateSection}>Соусы</Tab>
                 <Tab value="main" active={section === "main"} onClick={setStateSection}>Начинки</Tab>
@@ -26,26 +22,26 @@ const BurgerIngredients = (props) =>{
     )
     return (
         <>
-            {ingidient_tab}
-            <div  className={style.burger_ingredient}>
+            {tabs}
+            <div  className={style.burgerIngredients}>
                 <BurgerIngridientItems 
-                    show_ingridient={props.show_ingridient} 
-                    close_ingridient={props.close_ingridient}
-                    ingridient_section_name="Булки" 
-                    ingridients={burger_ingredient_bun}/>
+                    showIngridient={props.showIngridient} 
+                    sectionName="Булки" 
+                    ingridients={buns}/>
                 <BurgerIngridientItems                     
-                    show_ingridient={props.show_ingridient} 
-                    close_ingridient={props.close_ingridient}
-                    ingridient_section_name="Соусы" 
-                    ingridients={burger_ingredient_sauce}/>
+                    showIngridient={props.showIngridient} 
+                    sectionName="Соусы" 
+                    ingridients={sauces}/>
                 <BurgerIngridientItems                
-                    show_ingridient={props.show_ingridient} 
-                    close_ingridient={props.close_ingridient}
-                    ingridient_section_name="Начинки" 
-                    ingridients={burger_ingredient_main}/>
-            </div> 
-            
+                    showIngridient={props.showIngridient} 
+                    sectionName="Начинки" 
+                    ingridients={main}/>
+            </div>             
         </>
     )
+}
+BurgerIngredients.propTypes = {
+    showIngridient: PropTypes.func,
+    ingredients:PropTypes.arrayOf(ingridientType),
 }
 export {BurgerIngredients};

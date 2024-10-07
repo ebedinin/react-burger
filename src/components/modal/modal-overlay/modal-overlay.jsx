@@ -1,20 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import style from './modal-overlay.module.css'
 
 const ModalOverlay = (props) =>{
 
-    const click_modal_overlay = React.useCallback((e)=>{
-        if (e.target.className === style.modal_overlay) {
+    const clickModalOverlay = React.useCallback((e)=>{
+        if (e.target.className === style.modalOverlay) {
            props.close()
           }          
     }
     )
     
     return (
-        <div className={style.modal_overlay} onClick={click_modal_overlay}>
+        <div className={style.modalOverlay} onClick={clickModalOverlay}>
             {props.children}
         </div>
     )
+}
+
+ModalOverlay.propTypes = {
+    close: PropTypes.func,
+    children: PropTypes.object
 }
 
 export {ModalOverlay}

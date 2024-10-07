@@ -1,12 +1,13 @@
-.burger_ingredient {
+.burgerIngredients {
     height:600px;
     overflow: auto;
 }
-.burger_constructor{
+/*.burger_constructor{
 
     height:600px;
     overflow: auto;
 }
-.tab{
+    */
+.tabs{
     display: flex;
 }

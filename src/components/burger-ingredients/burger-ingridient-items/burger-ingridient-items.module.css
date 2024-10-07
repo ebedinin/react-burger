@@ -1,17 +1,14 @@
-
-.burger_ingridients {
+.burgerIngridients {
     --columns-count: 2;
     display: grid;
     grid-template-columns: repeat(var(--columns-count), minmax(0, 1fr));    
-  
-    
 }
-.burger_ingredient_item{
+.burgerIngredientItem{
     --columns-count: 1;
     display:  grid;
     grid-template-columns: repeat(var(--columns-count), minmax(0, 1fr));    
     text-align: center;
 }
-.wrapper_ingridient{
+.wrapperIngridient{
     position: relative;
 }

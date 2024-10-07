@@ -3,7 +3,7 @@
     flex-direction: column;
     gap: 10px
 }
-.place_order {
+.placeOrder {
     --columns-count: 2;
     display: grid;
     grid-template-columns: repeat(var(--columns-count), minmax(0, 1fr));     
