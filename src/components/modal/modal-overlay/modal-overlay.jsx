@@ -20,7 +20,7 @@ const ModalOverlay = (props) =>{
 
 ModalOverlay.propTypes = {
     close: PropTypes.func,
-    children: PropTypes.object
+    children: PropTypes.node
 }
 
 export {ModalOverlay}

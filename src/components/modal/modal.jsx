@@ -35,8 +35,8 @@ const Modal = (props) => {
 Modal.propTypes = {
     close: PropTypes.func,
     title:PropTypes.string,
-    root: PropTypes.object,
-    children: PropTypes.object
+    root: PropTypes.node,
+    children: PropTypes.node
 }
 
 export {Modal}

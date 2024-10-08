@@ -10,43 +10,54 @@ import {Modal} from './components/modal/modal.jsx'
 const url="https://norma.nomoreparties.space/api/ingredients"
 const modalRoot = document.getElementById("modal");
 function App() {
-  const [state, setState] = React.useState({ 
+  const [ingridients, setIngridients] = React.useState({ 
     loading: true,
     isError: false,
-    ingridientDetail: null,
-    ingridients: [],
-    order: null
+    data: [],
+  })
+  const [ingridientDetail, setIngridientDetail] = React.useState({
+    data: null
+  })
+  const [order, setOrder] = React.useState({
+    data: null
   })
   useEffect(()=>{
     fetch(url)
-    .then(response => response.json())
-    .then(data  => setState({...state, loading: false,isError:false, ingridients:data.data}))
-    .catch(()=> setState({...state,isError:true}))
+    .then(response => {
+      if (response.status!==200){
+        setIngridients({...ingridients,isError:true})
+      }
+      else{
+        return response.json() 
+      }
+      })
+    .then(data  => {setIngridients({...ingridients, loading: false,isError:false, data:data.data})})
+    .catch(()=> setIngridients({...ingridients,isError:true}))
   },[])
-  const buns = state.ingridients.filter((item)=>item.type==="bun");
-  const sauces = state.ingridients.filter((item)=>item.type==="sauce");
-  const main = state.ingridients.filter((item)=>item.type==="main");
+  const buns = ingridients.data.filter((item)=>item.type==="bun");
+  const sauces = ingridients.data.filter((item)=>item.type==="sauce");
+  const main = ingridients.data.filter((item)=>item.type==="main");
   const bun=buns[0];
   const burgerIngredients = [...main.slice(0,2),...sauces.splice(0,2)]
   
   const showIngridient = (id)=>{
-        setState({
-      ...state,ingridientDetail:state.ingridients.filter((item)=>item._id===id)[0]
-    })    
+    setIngridientDetail({
+      ...ingridientDetail,data:ingridients.data.filter((item)=>item._id===id)[0]
+    })
   }
   const closeIngridientDetail = (e)=>{
-    setState({
-    ...state,ingridientDetail:null
+    setIngridientDetail({
+    ...ingridientDetail,data:null
   })
   }
   const createOrder = ()=>{
-    setState({
-  ...state,order:{number: "034536"}
+    setOrder({
+  ...order,data:{number: "034536"}
 })    
 }
 const closeOrder = (e)=>{
-setState({
-...state,order:null
+  setOrder({
+...order,data:null
 })
 }
 
@@ -54,27 +65,27 @@ setState({
   return (
     <div className={style.app}>
       <AppHeader />
-      {!state.isError&&!state.loading&&
+      {!ingridients.isError&&!ingridients.loading&&
       <div className={style.wrapper}>        
         <div className={style.item} >
-          <BurgerIngredients showIngridient={showIngridient}  ingredients={state.ingridients}/>
+          <BurgerIngredients showIngridient={showIngridient}  ingredients={ingridients.data}/>
         </div>
         <div className={style.item}>
           <BurgerConstructor bun={bun} burgerIngredients={burgerIngredients} createOrder={createOrder}/>
         </div>
       </div>
     }
-    {state.isError&&
+    {ingridients.isError&&
     <p className="text text_type_main-large text_color_inactive">Ошибка загрузки ингридиентов</p>
     }
-    {state.ingridientDetail && 
+    {ingridientDetail.data && 
       <Modal root={modalRoot} title={'Детали ингридиента'} close={closeIngridientDetail}>
-          <IngredientDetails ingridient={state.ingridientDetail}/>
+          <IngredientDetails ingridient={ingridientDetail.data}/>
         </Modal>
     }
-    {state.order && 
+    {order.data && 
       <Modal root={modalRoot} title={''} close={closeOrder}>
-          <OrderDetails order={state.order}/>
+          <OrderDetails order={order.data}/>
         </Modal>
     }
     </div>
