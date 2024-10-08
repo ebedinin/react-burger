@@ -6,19 +6,18 @@ import { CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-co
 const BurgerIngridientItems = (props)=>{
     return(
         <>
-            <h3 className={`mt-6`}> {props.sectionName}</h3>
-            <div className={`mb-10 ${style.burgerIngridients}`} >
+            <h3 > {props.sectionName}</h3>
+            <div className={`ml-4 mb-10 ${style.burgerIngridients}`} >
                 
             {props.ingridients.map(item =>{
                 return(
-                <div className={`${style.burgerIngredientItem} mr-10`} key={item._id} onClick={()=>props.showIngridient(item._id)} >
-                    <div className={style.wrapperIngridient}>
-                        <Counter count={Math.round(Math.random()*10)} size='small'/>
-                    <img src={item.image}>
-                    </img>
+                <div className={`mr-6 mt-6 ${style.burgerIngredientItem}`} key={item._id} onClick={()=>props.showIngridient(item._id)} >
+                    <div className={`ml-4 mb-1 ${style.wrapperImageIngridient}`}>
+                        <Counter count='1' size='small'/>
+                        <img src={item.image} />
                     </div>
-                    <span>20 <CurrencyIcon /></span>
-                    <span>{item.name}</span>                    
+                    <span className='text text_type_digits-default' >20 <CurrencyIcon /></span>
+                    <span className="text text_type_main-default">{item.name}</span>                    
                 </div>
                 )
             })

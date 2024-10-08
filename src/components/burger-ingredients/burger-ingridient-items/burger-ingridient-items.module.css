@@ -9,6 +9,6 @@
     grid-template-columns: repeat(var(--columns-count), minmax(0, 1fr));    
     text-align: center;
 }
-.wrapperIngridient{
+.wrapperImageIngridient{
     position: relative;
 }
