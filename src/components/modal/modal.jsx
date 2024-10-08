@@ -20,9 +20,9 @@ const Modal = (props) => {
     return ReactDOM.createPortal(
         <div className={style.root}>
             <ModalOverlay close={props.close}>
-                <div className={style.modal}>
+                <div className={`p-10 ${style.modal}`}>
                     <div className={style.header}>
-                        <div className={style.text}>{props.title}</div><CloseIcon className={style.close} type="primary" onClick={props.close} />
+                        <div className={`text text_type_main-large ${style.text}`}>{props.title}</div><CloseIcon className={style.close} type="primary" onClick={props.close} />
                     </div>
                     {props.children}
                 </div>
