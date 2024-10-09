@@ -24,11 +24,11 @@ function App() {
   useEffect(()=>{
     fetch(url)
     .then(response => {
-      if (response.status!==200){
-        setIngridients({...ingridients,isError:true})
+      if (response.ok){
+        return response.json()
       }
       else{
-        return response.json() 
+        setIngridients({...ingridients,isError:true})
       }
       })
     .then(data  => {setIngridients({...ingridients, loading: false,isError:false, data:data.data})})
