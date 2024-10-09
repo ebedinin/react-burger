@@ -1,0 +1,5 @@
+.nutritionFacts{
+    --columns-count: 4;
+    display: grid;
+    grid-template-columns: repeat(var(--columns-count), minmax(0, 1fr));     
+}

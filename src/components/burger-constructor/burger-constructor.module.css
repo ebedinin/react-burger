@@ -1,0 +1,17 @@
+.burger {
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+.wrapperCreateOrder {
+    display: inline;
+}
+.createOrder{
+    float: right;
+    padding-right: 20px;
+    padding-top: 10px;
+}
+    /*--columns-count: 2;
+    display: grid;
+    grid-template-columns: repeat(var(--columns-count), minmax(0, 1fr));     
+    */

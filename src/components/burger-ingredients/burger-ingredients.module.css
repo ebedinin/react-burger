@@ -1,0 +1,13 @@
+.burgerIngredients {
+    height:600px;
+    overflow: auto;
+}
+/*.burger_constructor{
+
+    height:600px;
+    overflow: auto;
+}
+    */
+.tabs{
+    display: flex;
+}
