@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import {ingridientType} from './../../../utils/data.js'
+import {ingridientType} from './../../../services/type/ingredients.js'
 import style from './burger-ingridient-items.module.css'
 import { CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components'
-const BurgerIngridientItems = (props)=>{
+const BurgerIngridientItems = forwardRef((props, ref)=>{
     return(
         <>
-            <h3 > {props.sectionName}</h3>
+            <h3 ref={ref} > {props.sectionName}</h3>
             <div className={`ml-4 mb-10 ${style.burgerIngridients}`} >
                 
             {props.ingridients.map(item =>{
                 return(
-                <div className={`mr-6 mt-6 ${style.burgerIngredientItem}`} key={item._id} onClick={()=>props.showIngridient(item._id)} >
+                <div className={`mr-6 mt-6 ${style.burgerIngredientItem}`} key={item._id} onClick={()=>props.showIngridient(item)} >
                     <div className={`ml-4 mb-1 ${style.wrapperImageIngridient}`}>
                         <Counter count='1' size='small'/>
                         <img src={item.image} />
@@ -25,7 +25,7 @@ const BurgerIngridientItems = (props)=>{
             </div>
         </>
     )
-}
+});
 
 BurgerIngridientItems.propTypes = {
     showIngridient: PropTypes.func,

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {ingridientType} from './../../services/type/ingredients.js'
 import style from './burger-constructor.module.css'
-import {ingridientType} from './../../utils/data.js'
 
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 

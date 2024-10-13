@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ingridientType} from './../../utils/data.js'
+import {ingridientType} from './../../services/type/ingredients.js'
 import style from './ingridient-details.module.css'
 
 const modalRoot = document.getElementById("modal");

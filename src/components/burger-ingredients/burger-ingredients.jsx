@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import {ingridientType} from './../../utils/data.js'
+import {ingridientType} from './../../services/type/ingredients.js'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import {BurgerIngridientItems} from './burger-ingridient-items/burger-ingridient-items.jsx'
 import style from './burger-ingredients.module.css'
 
 const BurgerIngredients = (props) =>{
+    const refSectionBun = useRef()
+    const refSectionSouce = useRef()
+    const refSectionMain = useRef()
     const [section, setStateSection] = React.useState("bun");
     const buns = props.ingredients.filter((item)=>item.type==="bun");
     const sauces = props.ingredients.filter((item)=>item.type==="sauce");
@@ -20,19 +23,30 @@ const BurgerIngredients = (props) =>{
             </div>  
             </>
     )
+    const onScroll=()=>{
+        let list = [{section:"bun",top:Math.abs(refSectionBun.current.getBoundingClientRect().top)},
+            {section:"sauce",top:Math.abs(refSectionSouce.current.getBoundingClientRect().top)},
+            {section:"main",top:Math.abs(refSectionMain.current.getBoundingClientRect().top)}
+            ]
+        list.sort((a,b)=>a.top-b.top)
+        const newSection = list[0].section
+        if (newSection !==section){
+            setStateSection(list[0].section)
+        }
+    }
     return (
         <>
             {tabs}
-            <div  className={style.burgerIngredients}>
-                <BurgerIngridientItems 
+            <div  className={style.burgerIngredients} onScroll={onScroll }>
+                <BurgerIngridientItems ref={refSectionBun}
                     showIngridient={props.showIngridient} 
                     sectionName="Булки" 
                     ingridients={buns}/>
-                <BurgerIngridientItems                     
+                <BurgerIngridientItems  ref={refSectionSouce}                   
                     showIngridient={props.showIngridient} 
                     sectionName="Соусы" 
                     ingridients={sauces}/>
-                <BurgerIngridientItems                
+                <BurgerIngridientItems ref={refSectionMain}               
                     showIngridient={props.showIngridient} 
                     sectionName="Начинки" 
                     ingridients={main}/>
