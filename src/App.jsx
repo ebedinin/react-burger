@@ -17,10 +17,6 @@ const modalRoot = document.getElementById("modal");
 function App() {
   const dispatch = useDispatch()
 
-  /*const [ingridientDetail, setIngridientDetail] = React.useState({
-    data: null
-  })
-    */
   const [order, setOrder] = React.useState({
     data: null
   })
