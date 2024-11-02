@@ -39,17 +39,20 @@ const BurgerIngredients = (props) =>{
             {tabs}
             <div  className={style.burgerIngredients} onScroll={onScroll }>
                 <BurgerIngridientItems ref={refSectionBun}
-                    showIngridient={props.showIngridient} 
+                    showIngredient={props.showIngridient} 
+                    burgerIngredients={props.burgerIngredients} 
                     sectionName="Булки" 
-                    ingridients={buns}/>
+                    ingredients={buns}/>
                 <BurgerIngridientItems  ref={refSectionSouce}                   
                     showIngridient={props.showIngridient} 
+                    burgerIngredients={props.burgerIngredients} 
                     sectionName="Соусы" 
-                    ingridients={sauces}/>
+                    ingredients={sauces}/>
                 <BurgerIngridientItems ref={refSectionMain}               
-                    showIngridient={props.showIngridient} 
+                    showIngredient={props.showIngridient} 
+                    burgerIngredients={props.burgerIngredients} 
                     sectionName="Начинки" 
-                    ingridients={main}/>
+                    ingredients={main}/>
             </div>             
         </>
     )

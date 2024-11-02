@@ -1,0 +1,9 @@
+.burgerIngredientItem{
+    --columns-count: 1;
+    display:  grid;
+    grid-template-columns: repeat(var(--columns-count), minmax(0, 1fr));    
+    text-align: center;
+}
+.wrapperImageIngridient{
+    position: relative;
+}

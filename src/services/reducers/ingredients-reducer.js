@@ -4,8 +4,7 @@ import {actionLoadIngredients} from './../actions/ingredients-actions.js'
 const initialState={
     loading: true,
     isError: false,
-    data: [],
-    ingredientDetail:null
+    data: []
 }
 const sliceIngredients = createSlice({
     name:"ingredients",
@@ -21,6 +20,7 @@ const sliceIngredients = createSlice({
                 //debugger
                 state.loading=false
                 state.isError=true
+                state.data = []
             })
             .addCase(actionLoadIngredients.fulfilled, (state,action)=>{
                 state.loading = false
