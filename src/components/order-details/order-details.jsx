@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {orderType} from './../../utils/data.js'
+import {orderType} from './../../services/type/order.js'
 import { CheckMarkIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 const OrderDetails = (props)=>{
 
