@@ -1,0 +1,22 @@
+
+.wrapper{
+    display:flex;
+    justify-content: center;
+    max-width: 1200px;
+  }
+  .item{
+    flex:1;
+    width: 100%;
+    max-width: 630px;
+  }
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+.active{
+    color: white
+}
+.pending{
+    color: blue
+}
