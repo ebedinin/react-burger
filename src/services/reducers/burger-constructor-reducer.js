@@ -1,10 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit'
 import { v4 as uuidv4 } from 'uuid';
-//import {actionLoadIngredients} from './../actions/ingredients-constructor-actions.js'
 
 const initialState={
     bun: null,
-    data: [] // [ingridients]
+    data: [] 
 }
 const sliceBurgerConstructor = createSlice({
     name:"burgerConstructor",
@@ -15,7 +14,7 @@ const sliceBurgerConstructor = createSlice({
             state.data = [...state.data,{...action.payload, uid: uuidv4()}]
         },
         delIngredient:(state, action)=>{
-            state.data = state.data.filter(item => item.uid != action.payload.uid)//[...state.data,action.ingredient]
+            state.data = state.data.filter(item => item.uid != action.payload.uid)
         },
         changeIngredient:(state, action)=>{
             const ingredientIndexA = state.data.findIndex(ingredient => ingredient.uid === action.payload.ingredientA)
@@ -23,7 +22,6 @@ const sliceBurgerConstructor = createSlice({
             const ingredientA = state.data[ingredientIndexA]
             state.data[ingredientIndexA] = state.data[ingredientIndexB]
             state.data[ingredientIndexB] = ingredientA
-            //[state.data[ingredientIndexA], state.data[ingredientIndexB]] = [state.data[ingredientIndexB], state.data[ingredientIndexA]]
         },
         addBun:(state, action)=>{
             state.bun = action.payload

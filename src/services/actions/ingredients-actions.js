@@ -1,4 +1,4 @@
-import {createAsyncThunk} from '@reduxjs/toolkit'
+import {createAsyncThunk,createAction} from '@reduxjs/toolkit'
 import {loadAll} from './../api/ingredients-api.js'
 
 const actionLoadIngredients = createAsyncThunk("INGREDIENTS/LOAD",
@@ -6,4 +6,5 @@ const actionLoadIngredients = createAsyncThunk("INGREDIENTS/LOAD",
 	    return loadAll();
     }
 );
+
 export {actionLoadIngredients}

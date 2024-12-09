@@ -13,18 +13,15 @@ const sliceIngredients = createSlice({
     extraReducers:(builder)=>{
         builder
             .addCase(actionLoadIngredients.pending,(state)=>{
-                //debugger
                 state.loading = true
             })
             .addCase(actionLoadIngredients.rejected, (state,action)=>{
-                //debugger
                 state.loading=false
                 state.isError=true
                 state.data = []
             })
             .addCase(actionLoadIngredients.fulfilled, (state,action)=>{
                 state.loading = false
-                //debugger
                 state.isError = false
                 state.data = action.payload
             })
