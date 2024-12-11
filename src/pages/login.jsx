@@ -19,6 +19,7 @@ const Login = ()=>{
         navigate(from)
     }
     const login = (e)=>{
+        e.preventDefault()
         dispatch(actionLoginUser(formLogin))
     }
     const onChangeForm = useCallback((e)=>{
@@ -33,7 +34,7 @@ const Login = ()=>{
     return (
         <div className={style.wrapper}>
         <h3>Вход</h3>
-        <form  >
+        <form  onSubmit={login}>
         <Input 
             type={'text'}
             placeholder={'e-mail'}
@@ -49,7 +50,7 @@ const Login = ()=>{
             
             onChange={onChangeForm}
         />
-        <Button htmlType="button" type="primary" size="small" extraClass="ml-2" onClick={login}>
+        <Button htmlType="submit" type="primary" size="small" extraClass="ml-2" >
             Войти
         </Button>
         </form>

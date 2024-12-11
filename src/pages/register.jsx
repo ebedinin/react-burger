@@ -15,6 +15,7 @@ const Register = ()=>{
         navigate("/")
     }
     const registration = (e)=>{
+        e.preventDefault()
         dispatch(actionRegistrationUser(formLogin))
     }
     const onChangeForm = useCallback((e)=>{
@@ -33,6 +34,7 @@ const Register = ()=>{
     return (
         <div className={style.wrapper}>
         <h3>Регистрация</h3>
+        <form  onSubmit={registration}>
         <Input 
             type={'text'}
             placeholder={'Имя'}
@@ -56,9 +58,10 @@ const Register = ()=>{
             icon="ShowIcon"
             onChange={onChangeForm}
         />
-        <Button htmlType="button" type="primary" size="small" extraClass="ml-2" onClick={registration}>
+        <Button htmlType="submit" type="primary" size="small" extraClass="ml-2">
             Зарегистрироваться
         </Button>
+        </form>
         <h4 className='mt-10'>Уже зарегистрированы? <Link to="/login">Войти</Link></h4>
         </div>
     )

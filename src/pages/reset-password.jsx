@@ -20,7 +20,7 @@ const ResetPassword = ()=>{
         navigate("/login")
     }
     const resetPassword = (e)=>{
-        console.log(formLogin)
+        e.preventDefault()
         dispatch(actionResetPassword(formLogin))
     }
     const onChangeForm = useCallback((e)=>{
@@ -38,6 +38,7 @@ const ResetPassword = ()=>{
     return (
         <div className={style.wrapper}>
         <h3>Восстановление пароля</h3>
+        <form  onSubmit={resetPassword}>
         <PasswordInput 
             type={'text'}
             placeholder={'Введите новый пароль'}
@@ -55,9 +56,10 @@ const ResetPassword = ()=>{
             name={'code'}
             onChange={onChangeForm}
         />
-        <Button htmlType="button" type="primary" size="small" extraClass="ml-2" onClick={resetPassword}>
+        <Button htmlType="submit" type="primary" size="small" extraClass="ml-2">
             Сохранить
         </Button>
+        </form>
         <h4 className='mt-10'>Вспомнили пароль? <Link to="/login">Войти</Link></h4>
         </div>
     )
