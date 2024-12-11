@@ -20,6 +20,7 @@ const Profile = ()=>{
         }
     })
     const changeUser = (e)=>{
+        e.preventDefault()
         dispatch(actionChangeUser(formLogin))
     }
     const restorUser = (e)=>{
@@ -28,7 +29,7 @@ const Profile = ()=>{
     const isEdit = user && (formLogin.name !== user.name || formLogin.email !== user.email)
     return (  
         <>
-        {user&& <form>
+        {user&& <form onSubmit={changeUser}>
         <Input 
             type={'text'}
             placeholder={'Имя'}
@@ -57,7 +58,7 @@ const Profile = ()=>{
             onChange={onChangeForm}
         />
         {isEdit&& <>
-            <Button htmlType="button" type="primary" size="small" extraClass="ml-2" onClick={changeUser}>
+            <Button htmlType="submit" type="primary" size="small" extraClass="ml-2">
             Сохранить
         </Button>
             <Button htmlType="button" type="primary" size="small" extraClass="ml-2" onClick={restorUser}>

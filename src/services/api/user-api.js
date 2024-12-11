@@ -1,7 +1,5 @@
-import { print } from "../../utils/utils"
-const baseUrl = "https://norma.nomoreparties.space/api/"
+import { checkReponse, fetchWithRefresh, baseUrl } from './utils/common.js'
 const authorization = async (email, password)=>{
-    print(password)
     const endPointUrl = "auth/login "
     const response = await fetch(baseUrl.concat(endPointUrl),{
         
@@ -12,10 +10,7 @@ const authorization = async (email, password)=>{
           },
         body: JSON.stringify({'email':email, 'password': password})
     });
-    if (!response.ok){
-        throw new Error(`user-api.authorization: response.code=${response.code}`)
-    }
-    const data = await response.json()
+    const data = await checkReponse(response);
     localStorage.setItem("refreshToken", data.refreshToken); 
     localStorage.setItem("accessToken", data.accessToken);
     return data
@@ -31,10 +26,7 @@ const registration = async (email, password, name)=>{
           },
         body: JSON.stringify({'email':email, 'password':password, 'name':name})
     });
-    if (!response.ok){
-        throw new Error(`user-api.registration: response.code=${response.code}`)
-    }
-    const data = await response.json()    
+    const data = await checkReponse(response);  
     localStorage.setItem("refreshToken", data.refreshToken); 
     localStorage.setItem("accessToken", data.accessToken);
     return data
@@ -49,11 +41,7 @@ const forgotPassword = async (email)=>{
           },
         body: JSON.stringify({'email':email})
     });
-    if (!response.ok){
-        throw new Error(`user-api.forgotPassword: response.code=${response.code}`)
-    }
-    const data = await response.json()    
-    return data
+    return await checkReponse(response);
 }
 const resetPassword = async (password, code)=>{
     const endPointUrl = `password-reset/reset`
@@ -65,32 +53,7 @@ const resetPassword = async (password, code)=>{
           },
         body: JSON.stringify({'password':password, 'token':code})
     });
-    if (!response.ok){
-        throw new Error(`user-api.resetPassword: response.code=${response.code}`)
-    }
-    const data = await response.json()    
-    return data
-}
-
-const refreshToken = async ()=>{
-    const endPointUrl = "auth/token"
-    const response = await fetch(baseUrl.concat(endPointUrl),{
-        method: "post",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-        body: JSON.stringify({'token': localStorage.getItem("refreshToken")})
-    });
-    
-    const refreshData = checkReponse(response)
-    if (!refreshData.success) {
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('accessToken');
-        return Promise.reject(refreshData);
-      }
-    localStorage.setItem("refreshToken", refreshData.refreshToken); 
-    localStorage.setItem("accessToken", refreshData.accessToken);
+    return await checkReponse(response);
 }
 
 const logout = async ()=>{
@@ -104,35 +67,13 @@ const logout = async ()=>{
           },
         body: JSON.stringify({'token':localStorage.getItem("refreshToken")})
     });
-    if (!response.ok){
-        throw new Error(`user-api.logout: response.code=${response.code}`)
-    }
-    const data = await response.json()    
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('accessToken');
-    return data
+    return await checkReponse(response);
 }
 
-const checkReponse = async (res) => {
-    return res.ok ? await res.json() : await res.json().then((err) => Promise.reject(err));
-  };
   
 
-const fetchWithRefresh = async (url, options) => {
-    try {
-      const res = await fetch(url, options);
-      return await checkReponse(res);
-    } catch (err) {
-      if (err.message === "jwt expired") {
-        const refreshData = await refreshToken(); 
-        options.headers.authorization = refreshData.accessToken;
-        const res = await fetch(url, options); 
-        return await checkReponse(res);
-      } else {
-            return Promise.reject(err);
-      }
-    }
-  };
 
 const getUser = async ()=>{
     const endPointUrl = "auth/user"

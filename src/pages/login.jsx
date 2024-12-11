@@ -1,7 +1,7 @@
 import React, {useCallback, useState }from 'react';
 import style from './login.module.css'
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {actionLoginUser} from '../services/actions/user-actions.js'
 
@@ -11,9 +11,12 @@ const Login = ()=>{
     const [formLogin, setFormLogin] = useState({email:"", password: ""})
     const dispatch = useDispatch()
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from || '/';
+    
     const user = useSelector(getUser)
     if (user) {
-        navigate("/")
+        navigate(from)
     }
     const login = (e)=>{
         dispatch(actionLoginUser(formLogin))

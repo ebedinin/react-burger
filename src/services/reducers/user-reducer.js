@@ -42,7 +42,7 @@ const sliceUser = createSlice({
             .addCase(actionLoginUser.fulfilled, (state,action)=>{
                 state.isAuthorizationProcess = false
                 state.isErrorAuthorization = false
-                state.data = action.payload
+                state.data = action.payload.user
             })
             .addCase(actionRegistrationUser.pending,(state)=>{
                 state.isRegistrationProcess = true
@@ -55,7 +55,7 @@ const sliceUser = createSlice({
             .addCase(actionRegistrationUser.fulfilled, (state,action)=>{
                 state.isRegistrationProcess = false
                 state.isErrorRegistration = false
-                state.data = action.payload
+                state.data = action.payload.user
             })
             .addCase(actionLogoutUser.pending,(state)=>{
                 state.isLogoutProcess = true

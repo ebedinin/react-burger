@@ -39,11 +39,6 @@ const BurgerConstructor = (props)=>{
         const sumBun = bun?bun.price:0
         return sumIngredient + sumBun*2
     },[bun,burgerIngredients])
-    //console.log(sumOrder,burgerIngredients.reduce((sum,ingredient)=>sum+ingredient.price,0)+bun?(bun.price*2):0,burgerIngredients)
-    //console.log(sumOrder)
-    //        <Routes >
-    //        <Route path="/createOrder" element={<ProtectedAuthRouteElement element={createOrderElement} />} />
-    //    </Routes>
     const createOrder = useCallback(()=>{
         if (!bun) return null
         if (!user) {

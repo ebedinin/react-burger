@@ -32,7 +32,7 @@ const Cabinet = (props)=>{
                     </NavLink >
                 </div>
                 <div className={style.menu}>
-                    <NavLink  to="/orders" 
+                    <NavLink  to="/profile/orders" 
                     className={({ isActive, isPending }) =>{
                             return `text text_type_main-medium ${isActive ? style.active : 'text_color_inactive'}`
                     }}

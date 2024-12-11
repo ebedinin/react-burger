@@ -23,7 +23,7 @@ const sliceIngredients = createSlice({
             .addCase(actionLoadIngredients.fulfilled, (state,action)=>{
                 state.loading = false
                 state.isError = false
-                state.data = action.payload
+                state.data = action.payload.data
             })
     },
     selectors:{

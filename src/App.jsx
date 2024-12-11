@@ -14,7 +14,7 @@ import { getOrder, clearOrder } from './services/reducers/order-reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation, useParams} from 'react-router-dom';
 import {Login} from './pages/login'
 import {Logout} from './pages/logout'
 import {Register} from './pages/register'
@@ -30,7 +30,6 @@ function App() {
   const location = useLocation()
   const navigate = useNavigate();
   const background = location.state && location.state.background;
-
   const order = useSelector(getOrder)
   const loading = useSelector(getLoading)
   const isError = useSelector(getError)
@@ -81,7 +80,6 @@ const closeOrder = (e)=>{
     }
     </>
   )
-//<ProtectedAuthRouteElement element={} /> <Cabinet content="profile" />
 //
   return (
     <div className={style.app}>      
@@ -92,14 +90,14 @@ const closeOrder = (e)=>{
           <Route path="/" element={ <div className={style.wrapper}>{burgers}</div>} />
           <Route path='/ingredients/:ingredientId'
                element={<IngredientDetails />} />
+          <Route path="/orders" element={<h3>История заказов</h3>} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/profile" element={<ProtectedAuthRouteElement element={<Cabinet content="profile" />} />} />
-          <Route path="/orders" element={<ProtectedAuthRouteElement element={<Cabinet content="orders" />} />} />         
-          
+          <Route path="/profile" element={<ProtectedAuthRouteElement state={{ from: location}} element={<Cabinet content="profile" />} />} />
+          <Route path="/profile/orders" element={<ProtectedAuthRouteElement state={{ from: location}} element={<Cabinet content="orders" />} />} />         
         </Routes> 
         
     {background  && 

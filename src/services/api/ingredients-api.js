@@ -1,14 +1,10 @@
 
-import {fetchWithRefresh} from './user-api'
+import { checkReponse, fetchWithRefresh } from './utils/common.js'
 const baseUrl = "https://norma.nomoreparties.space/api/"
 const loadAll = async ()=>{
     const endPointUrl = "ingredients"
     const response = await fetch(baseUrl.concat(endPointUrl));
-    if (!response.ok){
-        throw new Error(`ingredients-api.loadAll: response.code=${response.code}`)
-    }
-    const data = await response.json()
-    return data.data
+    return await checkReponse(response)
 }
 
 const createOrder = async (ingredients)=>{
