@@ -14,13 +14,22 @@ import { getOrder, clearOrder } from './services/reducers/order-reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-
-
+import { Routes, Route, useNavigate, useLocation, useParams} from 'react-router-dom';
+import {Login} from './pages/login'
+import {Logout} from './pages/logout'
+import {Register} from './pages/register'
+import {ForgotPassword} from './pages/forgot-password'
+import {ResetPassword} from './pages/reset-password'
+import { Cabinet } from './pages/cabinet';
+import {ProtectedAuthRouteElement} from './components/protected-auth-route-element/protected-auth-route-element'
+import {actionGetUser } from './services/actions/user-actions.js'
 
 const modalRoot = document.getElementById("modal");
 function App() {
   const dispatch = useDispatch()
-
+  const location = useLocation()
+  const navigate = useNavigate();
+  const background = location.state && location.state.background;
   const order = useSelector(getOrder)
   const loading = useSelector(getLoading)
   const isError = useSelector(getError)
@@ -29,7 +38,12 @@ function App() {
 
   useEffect(()=>{
     dispatch(actionLoadIngredients());
+    dispatch(actionGetUser());
   },[])
+
+  const handleModalClose = () => {
+    navigate(-1);
+  };
 
   const buns = ingredients.filter((item)=>item.type==="bun");
   const sauces = ingredients.filter((item)=>item.type==="sauce");
@@ -49,13 +63,9 @@ function App() {
 const closeOrder = (e)=>{
   dispatch(clearOrder())
 }
-
-
-  return (
-    <div className={style.app}>
-      <AppHeader />
-      {!isError&&!loading&&
-      <div className={style.wrapper}>      
+  const burgers = (
+    <>
+    {!isError&&!loading&&     
       <DndProvider backend={HTML5Backend}>
         <div className={style.item} >
           <BurgerIngredients 
@@ -64,23 +74,52 @@ const closeOrder = (e)=>{
             ingredients={ingredients} />
         </div>
         <div className={style.item}>
-          <BurgerConstructor bun={bun} burgerIngredients={burgerIngredients} />
+          <BurgerConstructor />
         </div>
       </DndProvider>  
-      </div>
+    }
+    </>
+  )
+//
+  return (
+    <div className={style.app}>      
+      <AppHeader />
+      
+      
+        <Routes location={background || location}>
+          <Route path="/" element={ <div className={style.wrapper}>{burgers}</div>} />
+          <Route path='/ingredients/:ingredientId'
+               element={<IngredientDetails />} />
+          <Route path="/orders" element={<h3>История заказов</h3>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/profile" element={<ProtectedAuthRouteElement state={{ from: location}} element={<Cabinet content="profile" />} />} />
+          <Route path="/profile/orders" element={<ProtectedAuthRouteElement state={{ from: location}} element={<Cabinet content="orders" />} />} />         
+        </Routes> 
+        
+    {background  && 
+     <Routes>
+     <Route
+       path='/ingredients/:ingredientId'
+       element={
+         <Modal root={modalRoot} title={'Детали ингридиента'} close={handleModalClose}>
+         <IngredientDetails />
+       </Modal>
+       }
+     />
+    </Routes>
+    }
+    {order &&
+    <Modal root={modalRoot} title={''} close={closeOrder}>
+    <OrderDetails />
+  </Modal>
+
     }
     {isError&&
     <p className="text text_type_main-large text_color_inactive">Ошибка загрузки ингридиентов</p>
-    }
-    {ingredienttDetail && 
-      <Modal root={modalRoot} title={'Детали ингридиента'} close={closeIngredientDetail}>
-          <IngredientDetails ingridient={ingredienttDetail}/>
-        </Modal>
-    }
-    {order && 
-      <Modal root={modalRoot} title={''} close={closeOrder}>
-          <OrderDetails order={order}/>
-        </Modal>
     }
     </div>
   );

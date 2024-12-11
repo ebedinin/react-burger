@@ -19,11 +19,9 @@ const sliceOrder = createSlice({
     extraReducers:(builder)=>{
         builder
             .addCase(actionCreateOrder.pending,(state)=>{
-                //debugger
                 state.loading = true
             })
             .addCase(actionCreateOrder.rejected, (state,action)=>{
-                //debugger
                 state.loading=false
                 state.isError=true
                 state.name = ""
@@ -31,7 +29,6 @@ const sliceOrder = createSlice({
             })
             .addCase(actionCreateOrder.fulfilled, (state,action)=>{
                 state.loading = false
-                //debugger
                 state.isError = false
                 state.name = action.payload.name
                 state.order = action.payload.order
