@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
-import {authorization, registration,logout, getUser, forgotPassword, resetPassword, changeUser} from '../api/user-api.js'
+import {authorization, registration,logout, getUser, forgotPassword, resetPassword, changeUser} from '../api/user-api'
 const actionLoginUser = createAsyncThunk("USER/LOGIN",
     async  (account)=>{
 	    return authorization(account.email, account.password);

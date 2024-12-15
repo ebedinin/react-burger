@@ -1,7 +1,8 @@
+import { TUser } from './type/type';
 import { checkReponse, fetchWithRefresh, baseUrl } from './utils/common.js'
-const authorization = async (email, password)=>{
+const authorization = async (email:string, password:string)=>{
     const endPointUrl = "auth/login "
-    const response = await fetch(baseUrl.concat(endPointUrl),{
+    const response:Promise<Response> = await fetch(baseUrl.concat(endPointUrl),{
         
         method: "post",
         headers: {
@@ -16,7 +17,7 @@ const authorization = async (email, password)=>{
     return data
 }
 
-const registration = async (email, password, name)=>{
+const registration = async (email:string, password:string, name:string)=>{
     const endPointUrl = "auth/register"
     const response = await fetch(baseUrl.concat(endPointUrl),{
         method: "post",
@@ -31,7 +32,7 @@ const registration = async (email, password, name)=>{
     localStorage.setItem("accessToken", data.accessToken);
     return data
 }
-const forgotPassword = async (email)=>{
+const forgotPassword = async (email:string)=>{
     const endPointUrl = "password-reset"
     const response = await fetch(baseUrl.concat(endPointUrl),{
         method: "post",
@@ -43,7 +44,7 @@ const forgotPassword = async (email)=>{
     });
     return await checkReponse(response);
 }
-const resetPassword = async (password, code)=>{
+const resetPassword = async (password:string, code:string)=>{
     const endPointUrl = `password-reset/reset`
     const response = await fetch(baseUrl.concat(endPointUrl),{
         method: "post",
@@ -63,7 +64,7 @@ const logout = async ()=>{
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': localStorage.getItem("refreshToken")
+            'Authorization': String(localStorage.getItem("refreshToken"))
           },
         body: JSON.stringify({'token':localStorage.getItem("refreshToken")})
     });
@@ -87,7 +88,7 @@ const getUser = async ()=>{
     return data
 }
 
-const changeUser = async (user)=>{
+const changeUser = async (user:TUser)=>{
     const endPointUrl = "auth/user"
     const data = await fetchWithRefresh(baseUrl.concat(endPointUrl),{
         method: "PATCH",

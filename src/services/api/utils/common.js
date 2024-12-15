@@ -19,6 +19,7 @@ const refreshToken = async ()=>{
     });
     
     const refreshData = checkReponse(response)
+    console.log(refreshData)
     if (!refreshData.success) {
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('accessToken');
