@@ -5,14 +5,23 @@ import {addIngredient, addBun} from '../../services/reducers/burger-constructor-
 import {actionCreateOrder} from '../../services/actions/order-actions.js'
 import style from './burger-constructor.module.css'
 import { useDrop } from "react-dnd";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { BurgerConstructorIngredientTag } from './burger-constructor-ingredientTag.jsx';
 import { BurgerConstructorIngredientDrop } from './burger-constructor-ingredientDrop.jsx';
+import {ProtectedAuthRouteElement} from '../protected-auth-route-element/protected-auth-route-element.jsx'
+import {getBurgerIngredients,getBurgerBun } from '../../services/reducers/burger-constructor-reducer.js'
+
+import {getUser, getGetUserProcess } from '../../services/reducers/user-reducer.js'
 
 const BurgerConstructor = (props)=>{
     const dispatch = useDispatch()
+    const navigate = useNavigate();
+    const bun=useSelector(getBurgerBun)
+    const burgerIngredients = useSelector(getBurgerIngredients)
+    const user = useSelector(getUser)
     
     const [, dropTarget] = useDrop({
         accept: "ingredient",
@@ -26,18 +35,22 @@ const BurgerConstructor = (props)=>{
         },
     });
     const sumOrder = useMemo(()=>{ 
-        const sumIngredient = props.burgerIngredients.reduce((sum,ingredient)=>sum+ingredient.price,0)
-        const sumBun = props.bun?props.bun.price:0
+        const sumIngredient = burgerIngredients.reduce((sum,ingredient)=>sum+ingredient.price,0)
+        const sumBun = bun?bun.price:0
         return sumIngredient + sumBun*2
-    },[props.bun,props.burgerIngredients])
-    //console.log(sumOrder,props.burgerIngredients.reduce((sum,ingredient)=>sum+ingredient.price,0)+props.bun?(props.bun.price*2):0,props.burgerIngredients)
-    //console.log(sumOrder)
+    },[bun,burgerIngredients])
     const createOrder = useCallback(()=>{
-        if (!props.bun) return null
-        let ingredients = props.burgerIngredients.map(item=>item._id)        
-        ingredients.push(props.bun._id,props.bun._id)
+        if (!bun) return null
+        if (!user) {
+            navigate("/login")
+            return null
+        }
+       
+        let ingredients = burgerIngredients.map(item=>item._id)        
+        ingredients.push(bun._id,bun._id)
         dispatch(actionCreateOrder(ingredients))
-    },[props.burgerIngredients,props.bun])
+        
+    },[burgerIngredients,bun])
     return (
         <>
         <div className='mb-25'></div>
@@ -46,13 +59,13 @@ const BurgerConstructor = (props)=>{
             <div className='pl-8 mb-4'>
                 <ConstructorElement type="top" 
                     isLocked={true}
-                    text={props.bun?props.bun.name:""}
-                    price={props.bun?props.bun.price:""}
-                    thumbnail={props.bun?props.bun.image_large:null}
+                    text={bun?bun.name:""}
+                    price={bun?bun.price:""}
+                    thumbnail={bun?bun.image_large:null}
                 />
             </div>
             {
-                props.burgerIngredients.map((item)=>{
+                burgerIngredients.map((item)=>{
                     return (
                         <BurgerConstructorIngredientDrop uid={item.uid} key={item.uid}>
                             <BurgerConstructorIngredientTag ingredient={item} key={item.uid} />
@@ -63,20 +76,23 @@ const BurgerConstructor = (props)=>{
             <div className='pl-8'>
             <ConstructorElement type="bottom"
                 isLocked={true}
-                text={props.bun?props.bun.name:""}
-                price={props.bun?props.bun.price:""}
-                thumbnail={props.bun?props.bun.image_large:null}
+                text={bun?bun.name:""}
+                price={bun?bun.price:""}
+                thumbnail={bun?bun.image_large:null}
             />
             </div>
+
             <div className={`${style.wrapperCreateOrder} mt-10`}>
-                <div className={style.createOrder}>
-                    <span className='text text_type_digits-medium'>{sumOrder}</span>
-                    <CurrencyIcon className='mr-10' type="primary" />
-                    <Button htmlType="button" type="primary" size="large" onClick={()=>createOrder()}> 
-                        Оформить заказ
-                    </Button >
-                </div>
-            </div>
+    <div className={style.createOrder}>
+    <span className='text text_type_digits-medium'>{sumOrder}</span>
+    <CurrencyIcon className='mr-10' type="primary" />
+    <Button htmlType="button" type="primary" size="large" onClick={()=>createOrder()}> 
+        Оформить заказ
+    </Button >
+</div>
+    
+</div>
+            
         </div>
         </div>
         </>

@@ -3,13 +3,15 @@ import {reducerIngredient} from './../reducers/ingredients-reducer.js'
 import { reducerIngredientDetail } from "./../reducers/ingredient-detail-reducer.js";
 import { reducerBurgerConstructor } from "./../reducers/burger-constructor-reducer.js";
 import { reducerOrder } from "./../reducers/order-reducer.js";
+import { reducerUser } from "./../reducers/user-reducer.js";
 
 export const store = configureStore({
     reducer:{
         ingredients : reducerIngredient,
         ingredientDetail : reducerIngredientDetail,
         burgerConstructor : reducerBurgerConstructor,
-        order : reducerOrder
+        order : reducerOrder,
+        user : reducerUser
     },
     devTools: process.env.NODE_ENV !== 'production'
 })
