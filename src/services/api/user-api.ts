@@ -1,9 +1,8 @@
-import { TUser } from './type/type';
-import { checkReponse, fetchWithRefresh, baseUrl } from './utils/common.js'
+import { TUser, TResponseUser, TResponseSession, TResponseLogin } from './type/user';
+import { checkReponse, fetchWithRefresh, baseUrl } from './utils/common'
 const authorization = async (email:string, password:string)=>{
     const endPointUrl = "auth/login "
-    const response:Promise<Response> = await fetch(baseUrl.concat(endPointUrl),{
-        
+    const response = await fetch(baseUrl.concat(endPointUrl),{        
         method: "post",
         headers: {
             'Accept': 'application/json',
@@ -11,7 +10,7 @@ const authorization = async (email:string, password:string)=>{
           },
         body: JSON.stringify({'email':email, 'password': password})
     });
-    const data = await checkReponse(response);
+    const data: TResponseLogin = await checkReponse(response);
     localStorage.setItem("refreshToken", data.refreshToken); 
     localStorage.setItem("accessToken", data.accessToken);
     return data
@@ -27,7 +26,7 @@ const registration = async (email:string, password:string, name:string)=>{
           },
         body: JSON.stringify({'email':email, 'password':password, 'name':name})
     });
-    const data = await checkReponse(response);  
+    const data: TResponseLogin = await checkReponse(response);  
     localStorage.setItem("refreshToken", data.refreshToken); 
     localStorage.setItem("accessToken", data.accessToken);
     return data
@@ -42,8 +41,11 @@ const forgotPassword = async (email:string)=>{
           },
         body: JSON.stringify({'email':email})
     });
-    return await checkReponse(response);
+    const data: TResponseSession = await checkReponse(response)
+    return data;
 }
+
+
 const resetPassword = async (password:string, code:string)=>{
     const endPointUrl = `password-reset/reset`
     const response = await fetch(baseUrl.concat(endPointUrl),{
@@ -54,7 +56,8 @@ const resetPassword = async (password:string, code:string)=>{
           },
         body: JSON.stringify({'password':password, 'token':code})
     });
-    return await checkReponse(response);
+    const data: TResponseSession = await checkReponse(response)
+    return data;
 }
 
 const logout = async ()=>{
@@ -70,34 +73,31 @@ const logout = async ()=>{
     });
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('accessToken');
-    return await checkReponse(response);
+    const data: TResponseSession = await checkReponse(response)
+    return data;
 }
-
-  
 
 
 const getUser = async ()=>{
     const endPointUrl = "auth/user"
-    const data = await fetchWithRefresh(baseUrl.concat(endPointUrl),{
+    const data: TResponseUser = await fetchWithRefresh(baseUrl.concat(endPointUrl),{
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': localStorage.getItem("accessToken")
+            'Content-Type': 'application/json'
           }
     })
     return data
 }
 
-const changeUser = async (user:TUser)=>{
+const changeUser = async (email:string, name:string)=>{
     const endPointUrl = "auth/user"
-    const data = await fetchWithRefresh(baseUrl.concat(endPointUrl),{
+    const data: TResponseUser = await fetchWithRefresh(baseUrl.concat(endPointUrl),{
         method: "PATCH",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': localStorage.getItem("accessToken")
+            'Content-Type': 'application/json'
           },
-        body: JSON.stringify({'email':user.email, 'name': user.name})
+        body: JSON.stringify({'email':email, 'name': name})
     });
     return data
 }

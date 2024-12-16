@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import {reducerIngredient} from './../reducers/ingredients-reducer.js'
-import { reducerIngredientDetail } from "./../reducers/ingredient-detail-reducer.js";
-import { reducerBurgerConstructor } from "./../reducers/burger-constructor-reducer.js";
-import { reducerOrder } from "./../reducers/order-reducer.js";
-import { reducerUser } from "./../reducers/user-reducer.js";
+import {reducerIngredient} from './../reducers/ingredients-reducer'
+import { reducerIngredientDetail } from "./../reducers/ingredient-detail-reducer";
+import { reducerBurgerConstructor } from "./../reducers/burger-constructor-reducer";
+import { reducerOrder } from "./../reducers/order-reducer";
+import { reducerUser } from "./../reducers/user-reducer";
 
 export const store = configureStore({
     reducer:{
