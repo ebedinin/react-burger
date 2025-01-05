@@ -7,5 +7,5 @@ const actionLoadIngredients = createAsyncThunk<TResponseIngredients>("INGREDIENT
 	    return loadAll();
     }
 );
-
+export type TExternalIngredientAtions = ReturnType<typeof actionLoadIngredients>
 export {actionLoadIngredients}

@@ -19,6 +19,9 @@ const sliceIngredientDetail = createSlice({
     }
 })
 
+type TActionCreators = typeof sliceIngredientDetail.actions;
+export type TIngredientDetailAtions = ReturnType<TActionCreators[keyof TActionCreators]>
 export const {getIngredienttDetail} = sliceIngredientDetail.selectors;
 export const reducerIngredientDetail = sliceIngredientDetail.reducer;
 export const {setIngredienttDetail} = sliceIngredientDetail.actions;
+export {sliceIngredientDetail}

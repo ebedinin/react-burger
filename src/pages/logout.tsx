@@ -1,13 +1,13 @@
 import React, {FC, useEffect }from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {actionLogoutUser} from '../services/actions/user-actions'
 import {getLogoutProcess} from '../services/reducers/user-reducer'
 
-import { useAppDispatch } from '../services/store/app-dispath';
+import { useDispatch } from '../services/store/store';
 
 const Logout:FC = ()=>{
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     
     useEffect(()=>{

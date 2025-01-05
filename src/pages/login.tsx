@@ -7,11 +7,11 @@ import {actionLoginUser} from '../services/actions/user-actions'
 
 
 import {getUser } from '../services/reducers/user-reducer'
-import { useAppDispatch } from '../services/store/app-dispath';
+import { useDispatch } from '../services/store/store';
 
 const Login:FC = ()=>{
     const [formLogin, setFormLogin] = useState<{email:string,password:string}>({email:"", password: ""})
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from || '/';

@@ -2,14 +2,14 @@ import React, {FC, SyntheticEvent, useCallback, useState } from 'react';
 import style from './login.module.css'
 import { Input, PasswordInput, Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link,useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {actionRegistrationUser} from '../services/actions/user-actions'
 import {getUser } from '../services/reducers/user-reducer'
-import { useAppDispatch } from '../services/store/app-dispath';
+import { useDispatch } from '../services/store/store';
 
 const Register: FC = ()=>{
     const [formLogin, setFormLogin] = useState({email:"", password: "",name:""})
-    const dispatch = useAppDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector(getUser)
     if (user) {

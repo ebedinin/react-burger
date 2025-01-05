@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {actionCreateOrder} from './../actions/order-actions'
+import {actionCreateOrder, TExternalOrderAtions} from './../actions/order-actions'
 import { TOrder } from '../api/type/order.js'
 const initialState={
     loading: true,
@@ -43,6 +43,9 @@ const sliceOrder = createSlice({
     }
 })
 
+type TActionCreators = typeof sliceOrder.actions;
+export type TOrderAtions = ReturnType<TActionCreators[keyof TActionCreators]> // | TExternalOrderAtions
 export const {getLoading,getError,getOrder} = sliceOrder.selectors;
 export const {clearOrder} = sliceOrder.actions;
 export const reducerOrder = sliceOrder.reducer;
+export {sliceOrder}

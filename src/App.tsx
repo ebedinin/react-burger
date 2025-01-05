@@ -11,7 +11,7 @@ import {getLoading, getError, getIngredients } from './services/reducers/ingredi
 import {getBurgerIngredients,getBurgerBun,getBurgerAllIngredients } from './services/reducers/burger-constructor-reducer'
 import {getIngredienttDetail,setIngredienttDetail } from './services/reducers/ingredient-detail-reducer'
 import { getOrder, clearOrder } from './services/reducers/order-reducer';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Routes, Route, useNavigate, useLocation, useParams} from 'react-router-dom';
@@ -23,13 +23,13 @@ import {ResetPassword} from './pages/reset-password'
 import { Cabinet } from './pages/cabinet';
 import {ProtectedAuthRouteElement} from './components/protected-auth-route-element/protected-auth-route-element'
 import {actionGetUser } from './services/actions/user-actions'
-import { useAppDispatch } from './services/store/app-dispath';
+import { useDispatch } from './services/store/store';
 
 const modalRoot = document.getElementById("modal");
 
 
 const App: FC = ()=>{
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const location = useLocation()
   const navigate = useNavigate();
   const background = location.state && location.state.background;

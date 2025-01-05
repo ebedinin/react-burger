@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 import { PasswordInput, Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import {getUser} from '../services/reducers/user-reducer'
 import {actionChangeUser} from '../services/actions/user-actions'
-import { useAppDispatch } from '../services/store/app-dispath';
+import { useDispatch } from '../services/store/store';
 
 const Profile:FC = ()=>{
     const user = useSelector(getUser)
-    const dispatch = useAppDispatch();
+    const dispatch = useDispatch();
     const [formUser, setFormUser] = useState({name:user?user.name:"",email:user?user.email:""})
     const onChangeForm = useCallback((e: React.ChangeEvent<HTMLInputElement>)=>{
         if (e.target.name === "email"){

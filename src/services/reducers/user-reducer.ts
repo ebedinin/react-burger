@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {actionLoginUser, actionRegistrationUser, actionLogoutUser, actionGetUser, actionForgotPassword,actionResetPassword,actionChangeUser} from '../actions/user-actions'
+import {actionLoginUser, actionRegistrationUser, actionLogoutUser, actionGetUser, actionForgotPassword,actionResetPassword,actionChangeUser, TExternalUserAtions} from '../actions/user-actions'
 import { TUser } from '../api/type/user.js'
 
 const initialState={
@@ -117,7 +117,11 @@ const sliceUser = createSlice({
     }
 })
 
+type TActionCreators = typeof sliceUser.actions;
+export type TUserAtions = ReturnType<TActionCreators[keyof TActionCreators]> //| TExternalUserAtions
+
 export const {getAuthorizationProcess, getErrorAuthorization, getRegistrationProcess, getErrorRegistration, 
     getRefreshTokenProcess, getErrorRefreshToken, getLogoutProcess, getErrorLogout, getGetUserProcess, 
     getErrorGetUser, getUser,getSendCodeResetPassword} = sliceUser.selectors;
 export const reducerUser = sliceUser.reducer;
+export {sliceUser}

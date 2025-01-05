@@ -3,7 +3,6 @@ import {authorization, registration,logout, getUser, forgotPassword, resetPasswo
 import { TResponseLogin, TResponseSession, TResponseUser } from '../api/type/user';
 const actionLoginUser = createAsyncThunk<TResponseLogin,{email:string,password:string}>("USER/LOGIN",
     async  (account)=>{
-        console.log(account)
 	    return authorization(account.email, account.password);
     }
 );
@@ -38,4 +37,13 @@ const actionChangeUser = createAsyncThunk<TResponseUser,{email:string, name:stri
 	    return changeUser(user.email,user.name);
     }
 );
+
+export type TExternalUserAtions = ReturnType<typeof actionLoginUser> |
+ReturnType<typeof actionRegistrationUser> | 
+ReturnType<typeof actionForgotPassword> | 
+ReturnType<typeof actionResetPassword> | 
+ReturnType<typeof actionLogoutUser> | 
+ReturnType<typeof actionGetUser> | 
+ReturnType<typeof actionChangeUser>  
+
 export {actionLoginUser, actionRegistrationUser, actionLogoutUser, actionGetUser,actionForgotPassword,actionResetPassword,actionChangeUser}

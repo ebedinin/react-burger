@@ -6,11 +6,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {actionResetPassword} from '../services/actions/user-actions'
 import {getSendCodeResetPassword, getUser} from '../services/reducers/user-reducer'
-import { useAppDispatch } from '../services/store/app-dispath';
+import { useDispatch } from '../services/store/store';
 
 const ResetPassword: FC = ()=>{
     const [formLogin, setFormLogin] = useState({password:"",code:""})
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
     const navigate = useNavigate();
     const sendCodeResetPassword = useSelector(getSendCodeResetPassword)
     const user = useSelector(getUser)

@@ -50,6 +50,9 @@ const sliceBurgerConstructor = createSlice({
     }
 })
 
+type TActionCreators = typeof sliceBurgerConstructor.actions;
+export type TBurgerConstructorAtions = ReturnType<TActionCreators[keyof TActionCreators]>
 export const {getBurgerIngredients,getBurgerBun,getBurgerAllIngredients} = sliceBurgerConstructor.selectors;
 export const reducerBurgerConstructor = sliceBurgerConstructor.reducer;
 export const {addIngredient, delIngredient, changeIngredient, addBun,delBun } = sliceBurgerConstructor.actions;
+export {sliceBurgerConstructor}

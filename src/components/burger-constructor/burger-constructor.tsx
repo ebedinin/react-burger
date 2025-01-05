@@ -12,11 +12,12 @@ import { BurgerConstructorIngredientDrop } from './burger-constructor-ingredient
 import {getBurgerIngredients,getBurgerBun } from '../../services/reducers/burger-constructor-reducer'
 
 import {getUser} from '../../services/reducers/user-reducer'
-import { useAppDispatch } from '../../services/store/app-dispath';
+import { useDispatch } from '../../services/store/store';
 
 const BurgerConstructor:FC = ()=>{
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
     const navigate = useNavigate();
+    
     const bun=useSelector(getBurgerBun)
     const burgerIngredients = useSelector(getBurgerIngredients)
     const user = useSelector(getUser)

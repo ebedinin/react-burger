@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {actionLoadIngredients} from '../actions/ingredients-actions'
+import {actionLoadIngredients, TExternalIngredientAtions} from '../actions/ingredients-actions'
 import {TIngredient} from './../api/type/ingredients'
 
 
@@ -36,6 +36,8 @@ const sliceIngredients = createSlice({
         getIngredients: (state)=> state.data
     }
 })
-
+type TActionCreators = typeof sliceIngredients.actions;
+export type TIngredientAtions = ReturnType<TActionCreators[keyof TActionCreators]> //| TExternalIngredientAtions
 export const {getLoading,getError,getIngredients} = sliceIngredients.selectors;
 export const reducerIngredient = sliceIngredients.reducer;
+export {sliceIngredients}
