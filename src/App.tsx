@@ -24,6 +24,7 @@ import { Cabinet } from './pages/cabinet';
 import {ProtectedAuthRouteElement} from './components/protected-auth-route-element/protected-auth-route-element'
 import {actionGetUser } from './services/actions/user-actions'
 import { useDispatch } from './services/store/store';
+import { Feed } from './pages/feed';
 
 const modalRoot = document.getElementById("modal");
 
@@ -84,7 +85,7 @@ const closeOrder = ()=>{
           <Route path="/" element={ <div className={style.wrapper}>{burgers}</div>} />
           <Route path='/ingredients/:ingredientId'
                element={<IngredientDetails />} />
-          <Route path="/orders" element={<h3>История заказов</h3>} />
+          <Route path="/orders" element={<Feed />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<Register />} />

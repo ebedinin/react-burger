@@ -5,12 +5,16 @@ import { sliceBurgerConstructor, TBurgerConstructorAtions } from "../reducers/bu
 import { sliceOrder, TOrderAtions } from "../reducers/order-reducer";
 import { sliceUser, TUserAtions } from "../reducers/user-reducer";
 import { useDispatch as useDispatchRedux, useSelector as useSelectorRedux} from "react-redux";
+import { feedApi } from "../api/feed-api";
 
-const rootReducer = combineSlices(sliceIngredientDetail,sliceIngredients ,sliceBurgerConstructor, sliceOrder, sliceUser)
+const rootReducer = combineSlices(sliceIngredientDetail,sliceIngredients ,sliceBurgerConstructor, sliceOrder, sliceUser, feedApi)
+//[feedApi.reducerPath]=feedApi.reducer
+
 
 export const store = configureStore({
     reducer: rootReducer,
-    devTools: process.env.NODE_ENV !== 'production'
+    devTools: process.env.NODE_ENV !== 'production',
+    middleware: (gDM) => gDM().concat(feedApi.middleware),
 })
 
 export type TRootState = ReturnType<typeof rootReducer>
