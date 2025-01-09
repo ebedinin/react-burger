@@ -1,8 +1,9 @@
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { TFeed, TFeeds, TResponseFeed } from './type/order'
+import { refreshToken } from './utils/common'
 const initialStates = {
-    orders: Array() as TFeed[],
+    orders: [] as TFeed[],
     total: 0,
     totalToday: 0
 }
@@ -17,27 +18,26 @@ export const feedApi = createApi(
                 async onCacheEntryAdded(
                     arg,
                     { updateCachedData, cacheDataLoaded, cacheEntryRemoved, ...api },
-                ) {
-
+                ) {                   
+                    const ws = new WebSocket('wss://norma.nomoreparties.space/orders/all')
                     try {
-                        const ws = new WebSocket('wss://norma.nomoreparties.space/orders/all')
                         await cacheDataLoaded
                         ws.onmessage = (event: MessageEvent) => {
                             const data: TResponseFeed = JSON.parse(event.data)
+                            if (!data.success) {  
+                            }
                             updateCachedData((draft) => {
                                 draft.orders = data.orders
                                 draft.total = data.total
                                 draft.totalToday = data.totalToday
                             })
                         }
-                        await cacheEntryRemoved
-                        console.log("close")
-                        ws.onmessage = null
-                        ws.close()
                     } catch (e) {
                         console.log(e)
                     }
-
+                    await cacheEntryRemoved
+                    ws.onmessage = null
+                    ws.close()
 
                 }
             }),
@@ -47,23 +47,24 @@ export const feedApi = createApi(
                     arg,
                     { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
                 ) {
-                    const ws = new WebSocket(`wss://norma.nomoreparties.space/orders?token=${localStorage.getItem("accessToken")?.replace("Bearer ", "")}`)
+                    await refreshToken()
+                    const ws = new WebSocket(`wss://norma.nomoreparties.space/orders?token=${localStorage.getItem("accessToken")?.replace("Bearer ", "")}`)                                  
                     try {
                         await cacheDataLoaded
                         ws.onmessage = (event: MessageEvent) => {
                             const data: TResponseFeed = JSON.parse(event.data)
+                            if (!data.success) {  
+                            }
                             updateCachedData((draft) => {
                                 draft.orders = data.orders
                                 draft.total = data.total
                                 draft.totalToday = data.totalToday
                             })
-
                         }
                     } catch (e) {
                         console.log(e)
                     }
                     await cacheEntryRemoved
-                    console.log("close")
                     ws.onmessage = null
                     ws.close()
                 }

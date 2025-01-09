@@ -51,4 +51,4 @@ const fetchWithRefresh = async (url:string, options:RequestInit) => {
   };
   
 
-  export {checkReponse, fetchWithRefresh, baseUrl} 
+  export {checkReponse, fetchWithRefresh, baseUrl, refreshToken} 
