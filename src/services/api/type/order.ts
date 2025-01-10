@@ -23,6 +23,7 @@ export type TExtFeed ={
     _id: string,
     name: string,
     number: number,
+    status: TOrderStatus,
     createdAt: string,
     updatedAt: string
 }

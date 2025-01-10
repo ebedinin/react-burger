@@ -1,11 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {actionCreateOrder, TExternalOrderAtions} from './../actions/order-actions'
-import { TOrder } from '../api/type/order.js'
+import { TFeed, TOrder } from '../api/type/order.js'
 const initialState={
     loading: true,
     isError: false,
     name:"",
-    order: null as TOrder | null
+    order: null as TOrder | null,
+    feed: null as TFeed | null
 }
 
 export type TState = typeof initialState

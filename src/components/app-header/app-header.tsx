@@ -17,7 +17,7 @@ const AppHeader:FC = ()=>{
                 </div>
                 <div className={`${style.headerItem}`} > 
                     <div className='ml-5 mr-5' >
-                    <Link to='/orders'>
+                    <Link to='/feed'>
                         <ListIcon className='ml-2' type="secondary" />
                         <span className="pl-2 text text_type_main-default text_color_inactive" >Лента заказов</span>
                         </Link>

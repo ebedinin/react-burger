@@ -7,6 +7,11 @@ const actionCreateOrder = createAsyncThunk<TResponseOrder,string[]>("ORDER/CREAT
 	    return createOrder(ingredients);
     }
 );
+const actionGetOrder = createAsyncThunk<TResponseOrder,string[]>("FEED/ORDER/GET",
+    async (ingredients)=>{
+	    return createOrder(ingredients);
+    }
+);
 
 export type TExternalOrderAtions = ReturnType<typeof actionCreateOrder>
 export {actionCreateOrder}

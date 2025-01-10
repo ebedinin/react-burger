@@ -25,7 +25,7 @@ import {ProtectedAuthRouteElement} from './components/protected-auth-route-eleme
 import {actionGetUser } from './services/actions/user-actions'
 import { useDispatch } from './services/store/store';
 import { Feed } from './pages/feed';
-import { Feeds, FeedsAll } from './components/feed/feed';
+import { Feeds, FeedsAll, OrderAll } from './components/feed/feed';
 
 const modalRoot = document.getElementById("modal");
 
@@ -86,14 +86,17 @@ const closeOrder = ()=>{
           <Route path="/" element={ <div className={style.wrapper}>{burgers}</div>} />
           <Route path='/ingredients/:ingredientId'
                element={<IngredientDetails />} />
-          <Route path="/orders" element={<FeedsAll />} />
+          <Route path="/feed" element={<FeedsAll />} />          
+          <Route path='/feed/:orderId'
+               element={<OrderAll />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/profile" element={<ProtectedAuthRouteElement  element={<Cabinet content="profile" />} />} />
-          <Route path="/profile/orders" element={<ProtectedAuthRouteElement  element={<Cabinet content="orders" />} />} />         
+          <Route path="/profile/orders" element={<ProtectedAuthRouteElement  element={<Cabinet content="orders" />} />} />      
+          <Route path="/profile/orders/:orderId" element={<ProtectedAuthRouteElement  element={<OrderAll />} />} />    
         </Routes> 
         
     {background  && modalRoot &&
@@ -103,6 +106,22 @@ const closeOrder = ()=>{
        element={
          <Modal root={modalRoot} title={'Детали ингридиента'} close={handleModalClose}>
          <IngredientDetails />
+       </Modal>
+       }
+     />
+     <Route
+       path='/feed/:orderId'
+       element={
+         <Modal root={modalRoot} title={''} close={handleModalClose}>
+         <OrderAll />
+       </Modal>
+       }
+     />
+     <Route
+       path='/profile/orders/:orderId'
+       element={
+         <Modal root={modalRoot} title={''} close={handleModalClose}>
+         <OrderAll />
        </Modal>
        }
      />

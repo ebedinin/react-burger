@@ -10,9 +10,13 @@ const initialStates = {
 export const feedApi = createApi(
     {
         reducerPath: 'feedApi',
-        baseQuery: fetchBaseQuery({ baseUrl: '/' }),
+        baseQuery: fetchBaseQuery({ baseUrl: 'https://norma.nomoreparties.space/api/orders' }),
         keepUnusedDataFor: 5,
-        endpoints: (build) => ({
+        endpoints: (build) => ({            
+            getOrder: build.query<TFeeds, string>({
+                query: (orderId) => ({ url: `/${orderId}` }),
+                keepUnusedDataFor: 1,
+            }),
             getOrdersAll: build.query<TFeeds, void>({
                 queryFn: () => ({ data: initialStates }),
                 async onCacheEntryAdded(
@@ -74,5 +78,5 @@ export const feedApi = createApi(
     }
 )
 
-export const { useGetOrdersAllQuery, useGetOrdersUserQuery } = feedApi
+export const { useGetOrdersAllQuery, useGetOrdersUserQuery, useGetOrderQuery } = feedApi
 export const reducerFeed = feedApi.reducer
