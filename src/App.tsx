@@ -7,14 +7,11 @@ import { IngredientDetails } from './components/ingridient-details/ingridient-de
 import { OrderDetails } from './components/order-details/order-details'
 import { actionLoadIngredients } from './services/actions/ingredients-actions'
 import { Modal } from './components/modal/modal'
-import { getLoading, getError, getIngredients } from './services/reducers/ingredients-reducer'
-import { getBurgerIngredients, getBurgerBun, getBurgerAllIngredients } from './services/reducers/burger-constructor-reducer'
-import { getIngredienttDetail, setIngredienttDetail } from './services/reducers/ingredient-detail-reducer'
+import { getLoading, getError } from './services/reducers/ingredients-reducer'
 import { getOrder, clearOrder } from './services/reducers/order-reducer';
-import { useSelector } from 'react-redux';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { Routes, Route, useNavigate, useLocation, useParams } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { Login } from './pages/login'
 import { Logout } from './pages/logout'
 import { Register } from './pages/register'
@@ -23,9 +20,8 @@ import { ResetPassword } from './pages/reset-password'
 import { Cabinet } from './pages/cabinet';
 import { ProtectedAuthRouteElement } from './components/protected-auth-route-element/protected-auth-route-element'
 import { actionGetUser } from './services/actions/user-actions'
-import { useDispatch } from './services/store/store';
-import { Feed } from './pages/feed';
-import { Feeds, FeedsAll, OrderAll } from './components/feed/feed';
+import { useDispatch, useSelector } from './services/store/store';
+import { FeedsAll, OrderAll } from './components/feed/feed';
 
 const modalRoot = document.getElementById("modal");
 
@@ -38,26 +34,15 @@ const App: FC = () => {
   const order = useSelector(getOrder)
   const loading = useSelector(getLoading)
   const isError = useSelector(getError)
-  const ingredients = useSelector(getIngredients)
-  const ingredienttDetail = useSelector(getIngredienttDetail)
 
   useEffect(() => {
     dispatch(actionLoadIngredients());
     dispatch(actionGetUser());
-  }, [])
+  }, [dispatch])
 
   const handleModalClose = () => {
     navigate(-1);
   };
-
-  const buns = ingredients.filter((item) => item.type === "bun");
-  const sauces = ingredients.filter((item) => item.type === "sauce");
-  const main = ingredients.filter((item) => item.type === "main");
-  const bun = useSelector(getBurgerBun)
-  //const burgerIngredients = [...main.slice(0,2),...sauces.splice(0,2)]
-  const burgerIngredients = useSelector(getBurgerIngredients)
-  const burgerAllIngredients = useSelector(getBurgerAllIngredients)
-
 
   const closeOrder = () => {
     dispatch(clearOrder())

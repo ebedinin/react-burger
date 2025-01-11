@@ -1,1 +1,1 @@
-export type TResponse={ success:string}
+export type TResponse = { success: string }

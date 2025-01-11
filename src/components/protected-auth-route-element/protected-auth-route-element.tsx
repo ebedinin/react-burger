@@ -1,5 +1,4 @@
-import { FC, ReactElement, ReactNode, useEffect } from 'react';
-//import { useSelector } from 'react-redux';
+import { FC, ReactElement, useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import {getUser, getGetUserProcess } from '../../services/reducers/user-reducer'
 import {actionGetUser } from '../../services/actions/user-actions'
@@ -18,7 +17,7 @@ const ProtectedAuthRouteElement:FC<TProtectedAuthRouteElementProps> = ({ element
  
   useEffect(() => {
     dispatch(actionGetUser);
-  }, []);
+  }, [dispatch]);
 
   if (!isUserLoaded && !user) {
       return <Navigate to="/login" state={{ from: location}} />

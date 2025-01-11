@@ -1,5 +1,4 @@
 import React,{FC} from 'react';
-import PropTypes from 'prop-types';
 import style from './app-header.module.css'
 import { BurgerIcon, ListIcon, ProfileIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link } from 'react-router-dom';

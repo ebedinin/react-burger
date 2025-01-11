@@ -14,7 +14,7 @@ const BurgerIngridientItems = forwardRef<HTMLHeadingElement,TBurgerIngridientIte
     
     const getCountIngredient = useCallback((id:string, ingredients:TBurgerConstructorIngredient[])=>{
         return ingredients?ingredients.reduce((sum,currentItem)=> currentItem._id === id?sum+1:sum,0):0
-    },[props.burgerIngredients])
+    },[])
     return(
         <>
             <h3 ref={ref} > {props.sectionName}</h3>

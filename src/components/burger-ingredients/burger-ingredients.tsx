@@ -3,7 +3,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import {BurgerIngridientItems} from './burger-ingridient-items/burger-ingridient-items'
 import {getBurgerAllIngredients } from './../../services/reducers/burger-constructor-reducer'
 import {getIngredients } from './../../services/reducers/ingredients-reducer'
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/store/store';
 import style from './burger-ingredients.module.css'
 import { TIngredient } from '../../services/api/type/ingredients.js';
 

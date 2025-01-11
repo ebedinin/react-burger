@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import style from './cabinet.module.css'
 import { Profile } from './profile';
-import { Orders } from './order'
 import { NavLink  } from 'react-router-dom';
 import { FeedsUser } from '../components/feed/feed';
 

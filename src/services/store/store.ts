@@ -1,13 +1,13 @@
 import { combineSlices, configureStore, ThunkDispatch } from "@reduxjs/toolkit";
-import { sliceIngredients, TIngredientAtions} from '../reducers/ingredients-reducer'
+import { sliceIngredients, TIngredientAtions } from '../reducers/ingredients-reducer'
 import { sliceIngredientDetail, TIngredientDetailAtions } from "../reducers/ingredient-detail-reducer";
 import { sliceBurgerConstructor, TBurgerConstructorAtions } from "../reducers/burger-constructor-reducer";
 import { sliceOrder, TOrderAtions } from "../reducers/order-reducer";
 import { sliceUser, TUserAtions } from "../reducers/user-reducer";
-import { useDispatch as useDispatchRedux, useSelector as useSelectorRedux} from "react-redux";
+import { useDispatch as useDispatchRedux, useSelector as useSelectorRedux } from "react-redux";
 import { feedApi } from "../api/feed-api";
 
-const rootReducer = combineSlices(sliceIngredientDetail,sliceIngredients ,sliceBurgerConstructor, sliceOrder, sliceUser, feedApi)
+const rootReducer = combineSlices(sliceIngredientDetail, sliceIngredients, sliceBurgerConstructor, sliceOrder, sliceUser, feedApi)
 //[feedApi.reducerPath]=feedApi.reducer
 
 
@@ -18,9 +18,9 @@ export const store = configureStore({
 })
 
 export type TRootState = ReturnType<typeof rootReducer>
-export type TAppActions =  TUserAtions | TOrderAtions | TBurgerConstructorAtions | TIngredientDetailAtions | TIngredientAtions
+export type TAppActions = TUserAtions | TOrderAtions | TBurgerConstructorAtions | TIngredientDetailAtions | TIngredientAtions
 
 type AppDispatch = ThunkDispatch<TRootState, unknown, TAppActions>;
 
-export const useDispatch =  useDispatchRedux.withTypes<AppDispatch>();
-export const useSelector =  useSelectorRedux.withTypes<TRootState>();
+export const useDispatch = useDispatchRedux.withTypes<AppDispatch>();
+export const useSelector = useSelectorRedux.withTypes<TRootState>();

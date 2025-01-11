@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { TBurgerConstructorIngredient} from '../../services/reducers/burger-constructor-reducer'
 import { useDrag } from "react-dnd";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/store/store';
 import {delIngredient } from '../../services/reducers/burger-constructor-reducer'
 
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'

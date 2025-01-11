@@ -18,7 +18,7 @@ export type TFeed = {
     createdAt: string,
     updatedAt: string
 }
-export type TExtFeed ={    
+export type TExtFeed = {
     ingredients: Array<TIngredient>,
     _id: string,
     name: string,
@@ -27,8 +27,8 @@ export type TExtFeed ={
     createdAt: string,
     updatedAt: string
 }
-export type TFeeds = {    
-    orders : Array<TFeed>,
+export type TFeeds = {
+    orders: Array<TFeed>,
     total: number,
     totalToday: number
 }

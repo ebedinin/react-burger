@@ -12,7 +12,7 @@ export const feedApi = createApi(
         reducerPath: 'feedApi',
         baseQuery: fetchBaseQuery({ baseUrl: 'https://norma.nomoreparties.space/api/orders' }),
         keepUnusedDataFor: 5,
-        endpoints: (build) => ({            
+        endpoints: (build) => ({
             getOrder: build.query<TFeeds, string>({
                 query: (orderId) => ({ url: `/${orderId}` }),
                 keepUnusedDataFor: 1,
@@ -22,13 +22,13 @@ export const feedApi = createApi(
                 async onCacheEntryAdded(
                     arg,
                     { updateCachedData, cacheDataLoaded, cacheEntryRemoved, ...api },
-                ) {                   
+                ) {
                     const ws = new WebSocket('wss://norma.nomoreparties.space/orders/all')
                     try {
                         await cacheDataLoaded
                         ws.onmessage = (event: MessageEvent) => {
                             const data: TResponseFeed = JSON.parse(event.data)
-                            if (!data.success) {  
+                            if (!data.success) {
                             }
                             updateCachedData((draft) => {
                                 draft.orders = data.orders
@@ -52,12 +52,12 @@ export const feedApi = createApi(
                     { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
                 ) {
                     await refreshToken()
-                    const ws = new WebSocket(`wss://norma.nomoreparties.space/orders?token=${localStorage.getItem("accessToken")?.replace("Bearer ", "")}`)                                  
+                    const ws = new WebSocket(`wss://norma.nomoreparties.space/orders?token=${localStorage.getItem("accessToken")?.replace("Bearer ", "")}`)
                     try {
                         await cacheDataLoaded
                         ws.onmessage = (event: MessageEvent) => {
                             const data: TResponseFeed = JSON.parse(event.data)
-                            if (!data.success) {  
+                            if (!data.success) {
                             }
                             updateCachedData((draft) => {
                                 draft.orders = data.orders

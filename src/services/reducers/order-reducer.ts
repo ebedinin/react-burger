@@ -1,52 +1,53 @@
-import {createSlice} from '@reduxjs/toolkit'
-import {actionCreateOrder, TExternalOrderAtions} from './../actions/order-actions'
+import { createSlice } from '@reduxjs/toolkit'
+import { actionCreateOrder } from './../actions/order-actions'
 import { TFeed, TOrder } from '../api/type/order.js'
-const initialState={
+const initialState = {
     loading: true,
     isError: false,
-    name:"",
+    name: "",
     order: null as TOrder | null,
     feed: null as TFeed | null
 }
 
 export type TState = typeof initialState
 const sliceOrder = createSlice({
-    name:"order",
+    name: "order",
     reducerPath: "order",
     initialState,
     reducers: {
-        clearOrder:(state)=>{
+        clearOrder: (state) => {
             state.order = null
             state.name = ""
-        }},
-    extraReducers:(builder)=>{
+        }
+    },
+    extraReducers: (builder) => {
         builder
-            .addCase(actionCreateOrder.pending,(state)=>{
+            .addCase(actionCreateOrder.pending, (state) => {
                 state.loading = true
             })
-            .addCase(actionCreateOrder.rejected, (state)=>{
-                state.loading=false
-                state.isError=true
+            .addCase(actionCreateOrder.rejected, (state) => {
+                state.loading = false
+                state.isError = true
                 state.name = ""
                 state.order = null
             })
-            .addCase(actionCreateOrder.fulfilled, (state,action)=>{
+            .addCase(actionCreateOrder.fulfilled, (state, action) => {
                 state.loading = false
                 state.isError = false
                 state.name = action.payload.name
                 state.order = action.payload.order
             })
     },
-    selectors:{
-        getLoading: (state)=> state.loading,
-        getError: (state)=> state.isError,
-        getOrder: (state)=> state.order
+    selectors: {
+        getLoading: (state) => state.loading,
+        getError: (state) => state.isError,
+        getOrder: (state) => state.order
     }
 })
 
 type TActionCreators = typeof sliceOrder.actions;
 export type TOrderAtions = ReturnType<TActionCreators[keyof TActionCreators]> // | TExternalOrderAtions
-export const {getLoading,getError,getOrder} = sliceOrder.selectors;
-export const {clearOrder} = sliceOrder.actions;
+export const { getLoading, getError, getOrder } = sliceOrder.selectors;
+export const { clearOrder } = sliceOrder.actions;
 export const reducerOrder = sliceOrder.reducer;
-export {sliceOrder}
+export { sliceOrder }
