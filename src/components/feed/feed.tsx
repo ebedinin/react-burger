@@ -72,7 +72,7 @@ const Order: FC<TOrderProps> = ({ order }) => {
     
     const ingredients = (<>
         {Array.from(sumIngredients.values()).map((ingredient,index) => 
-        <div className={`${style.containerSpaceBetween}`}>
+        <div className={`${style.containerSpaceBetween}`} key={ingredient._id}>
             <div className={`${style.containerStart}`}>
                 <div className={`${style.containerIngredient}`}>
                     <img className={`${style.ingredientImage}`} src={ingredient.image} />
@@ -117,13 +117,11 @@ const Order: FC<TOrderProps> = ({ order }) => {
     )
 }
 
-type TOrderAllProps = {
-    orderId: string
-}
+
 const OrderAll: FC = () => {
-    let {orderId}  = useParams();
-    if (orderId === undefined) orderId=""
-    const { data, isFetching, isLoading, isError, isSuccess } = useGetOrderQuery(orderId)
+    let {orderNumber}  = useParams();
+    if (orderNumber === undefined) orderNumber=""
+    const { data, isFetching, isLoading, isError, isSuccess } = useGetOrderQuery(orderNumber)
     const ingredients = useSelector(getIngredients)    
     if (!isSuccess || data === undefined || data.orders.length === 0 || ingredients === undefined) return null   
     const extFeed =  extensionFeed(data.orders[0], ingredients)
@@ -152,7 +150,7 @@ const Feeds: FC<TFeedsProps> = ({feeds, path}) => {
             {extFeeds.map(feed=>
             <Link
                 key={feed._id}
-                to={`${path}/${feed._id}`}
+                to={`${path}/${feed.number}`}
                 state={{ background: location }}
             >
                 <Feed feed={feed} />
