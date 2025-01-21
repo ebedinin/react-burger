@@ -30,7 +30,7 @@ const BurgerIngridientItem: FC<TBurgerIngridientItemProps> = ((props)=>{
         <div className={`mr-6 mt-6 ${style.burgerIngredientItem}`}  ref={dragRef} >
             <div className={`ml-4 mb-1 ${style.wrapperImageIngridient}`}>
                 {props.count!==0 && <Counter count={props.count} size='small'/>}
-                <img src={ingredient.image} />
+                <img src={ingredient.image} alt='ingredient'/>
             </div>
             <span className='text text_type_digits-default' >{ingredient.price} <CurrencyIcon type="secondary"/></span>
             <span className="text text_type_main-default">{ingredient.name}</span>

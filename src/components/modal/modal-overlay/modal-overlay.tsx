@@ -1,4 +1,4 @@
-import React, { EventHandler, FC,MouseEventHandler,ReactElement,useCallback } from 'react';
+import React, { FC, ReactElement,useCallback } from 'react';
 import style from './modal-overlay.module.css'
 
 type TModalOverlayProps = {
@@ -13,7 +13,7 @@ const ModalOverlay:FC <TModalOverlayProps>= ({children, close}) =>{
         if (e.target instanceof Element &&e.target.className === style.modalOverlay) {
            close()
         }          
-    },[]
+    },[close]
     )
     
     return (

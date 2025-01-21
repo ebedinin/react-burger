@@ -1,24 +1,27 @@
-import {createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { TIngredient } from '../api/type/ingredients';
 
-const initialState={
-    ingredientDetail:null as TIngredient[] | null
+const initialState = {
+    ingredientDetail: null as TIngredient[] | null
 }
 export type TState = typeof initialState
 const sliceIngredientDetail = createSlice({
-    name:"ingredientDetail",
+    name: "ingredientDetail",
     reducerPath: "ingredientDetail",
     initialState,
     reducers: {
-        setIngredienttDetail:(state: TState, action)=>{
+        setIngredienttDetail: (state: TState, action) => {
             state.ingredientDetail = action.payload
         }
     },
-    selectors:{
-        getIngredienttDetail: (state: TState)=> state.ingredientDetail
+    selectors: {
+        getIngredienttDetail: (state: TState) => state.ingredientDetail
     }
 })
 
-export const {getIngredienttDetail} = sliceIngredientDetail.selectors;
+type TActionCreators = typeof sliceIngredientDetail.actions;
+export type TIngredientDetailAtions = ReturnType<TActionCreators[keyof TActionCreators]>
+export const { getIngredienttDetail } = sliceIngredientDetail.selectors;
 export const reducerIngredientDetail = sliceIngredientDetail.reducer;
-export const {setIngredienttDetail} = sliceIngredientDetail.actions;
+export const { setIngredienttDetail } = sliceIngredientDetail.actions;
+export { sliceIngredientDetail }

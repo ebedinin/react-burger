@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import style from './cabinet.module.css'
 import { Profile } from './profile';
-import { Orders } from './order'
 import { NavLink  } from 'react-router-dom';
+import { FeedsUser } from '../components/feed/feed';
 
 type TCabinetProps = {
     content:string
@@ -11,12 +11,13 @@ type TCabinetProps = {
 const Cabinet:FC<TCabinetProps> = (props)=>{
     let content = <Profile />;
     
+    
     switch (props.content){
         case 'profile':
             content = <Profile />;
             break;        
         case 'orders':
-            content = <Orders />;
+            content = <FeedsUser  />;
             break        
         default:
             content = <Profile />;
@@ -25,7 +26,7 @@ const Cabinet:FC<TCabinetProps> = (props)=>{
     }
      
     return (
-        <div className={style.wrapper}>
+        <div className={`mt-8 ${style.wrapper}`}>
             <div className={style.item}>
                 <div className={style.menu}>
                     <NavLink  to="/profile" 
@@ -55,7 +56,7 @@ const Cabinet:FC<TCabinetProps> = (props)=>{
                     </NavLink >
                 </div>
             </div>
-            <div className={style.item}>
+            <div className={`${style.item}`}>
             { content }
             </div>
         </div>

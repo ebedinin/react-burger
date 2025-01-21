@@ -1,5 +1,4 @@
 import React,{FC} from 'react';
-import PropTypes from 'prop-types';
 import style from './app-header.module.css'
 import { BurgerIcon, ListIcon, ProfileIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link } from 'react-router-dom';
@@ -17,7 +16,7 @@ const AppHeader:FC = ()=>{
                 </div>
                 <div className={`${style.headerItem}`} > 
                     <div className='ml-5 mr-5' >
-                    <Link to='/orders'>
+                    <Link to='/feed'>
                         <ListIcon className='ml-2' type="secondary" />
                         <span className="pl-2 text text_type_main-default text_color_inactive" >Лента заказов</span>
                         </Link>

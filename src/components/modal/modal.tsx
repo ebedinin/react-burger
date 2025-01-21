@@ -12,30 +12,30 @@ type TModalProps = {
 }
 
 const Modal:FC<TModalProps> = (props) => {
-    
+    const {close, title, root,  children} = props
     const pressEsc = React.useCallback((e:KeyboardEvent)=>{
         if (e.key === "Escape") {
-           props.close()
+           close()
           }          
-    },[]
-    )
+    }, [close])
+    
     React.useEffect(()=>{
         document.addEventListener("keydown", pressEsc, false);
         return ()=> document.removeEventListener("keydown", pressEsc, false);
-    },[])
+    },[pressEsc])
 
     return ReactDOM.createPortal(
         <div className={style.root}>
-            <ModalOverlay close={props.close}>
+            <ModalOverlay close={close}>
                 <div className={`p-10 ${style.modal}`}>
                     <div className={style.header}>
-                        <div className={`text text_type_main-large ${style.text}`}>{props.title}</div><CloseIcon className={style.close} type="primary" onClick={props.close} />
+                        <div className={`text text_type_main-large ${style.text}`}>{title}</div><CloseIcon className={style.close} type="primary" onClick={close} />
                     </div>
-                    {props.children}
+                    {children}
                 </div>
             </ModalOverlay>
         </div>,
-        props.root
+        root
     )
 }
 

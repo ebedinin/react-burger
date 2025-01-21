@@ -2,7 +2,7 @@ import React from 'react';
 import {getIngredients} from './../../services/reducers/ingredients-reducer'
 import style from './ingridient-details.module.css'
 import { useParams} from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/store/store';
 
 const IngredientDetails = () => {
     const {ingredientId} = useParams();
@@ -15,7 +15,7 @@ const IngredientDetails = () => {
         <>
         {ingredient&&
         <div className=''>
-            <img src={ingredient.image_large} />
+            <img src={ingredient.image_large} alt='ingredient' />
             <span className='text text_type_main-medium mt-4 '>{ingredient.name}</span>
             <div className={`pt-8 ${style.nutritionFacts}`}>
                 <div className='text text_type_main-small text_color_inactive mr-5'><span>Калорий, ккал</span><br/><span>{ingredient.calories}</span></div>

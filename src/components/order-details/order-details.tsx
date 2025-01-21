@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/store/store';
 import { CheckMarkIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import { getOrder } from '../../services/reducers/order-reducer';
 
