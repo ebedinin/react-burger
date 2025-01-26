@@ -27,7 +27,7 @@ const BurgerIngridientItem: FC<TBurgerIngridientItemProps> = ((props)=>{
         to={`/ingredients/${ingredientId}`}
         state={{ background: location }}
         >
-        <div className={`mr-6 mt-6 ${style.burgerIngredientItem}`}  ref={dragRef} >
+        <div className={`mr-6 mt-6 ${style.burgerIngredientItem}`}  ref={dragRef} data-cy={`dragableIngredients-${ingredient._id}`}>
             <div className={`ml-4 mb-1 ${style.wrapperImageIngridient}`}>
                 {props.count!==0 && <Counter count={props.count} size='small'/>}
                 <img src={ingredient.image} alt='ingredient'/>

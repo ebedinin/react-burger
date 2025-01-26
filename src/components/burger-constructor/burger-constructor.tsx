@@ -1,6 +1,7 @@
 import React, { FC, useCallback, useMemo } from 'react';
 import { addIngredient, addBun, TBurgerConstructorIngredient } from '../../services/reducers/burger-constructor-reducer'
 import { actionCreateOrder } from '../../services/actions/order-actions'
+import { v4 as uuidv4 } from 'uuid';
 import style from './burger-constructor.module.css'
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from '../../services/store/store';
@@ -27,7 +28,7 @@ const BurgerConstructor: FC = () => {
                 dispatch(addBun(ingredient))
             }
             else {
-                dispatch(addIngredient(ingredient))
+                dispatch(addIngredient({...ingredient, uid: uuidv4()}))
             }
         },
     });
@@ -53,7 +54,7 @@ const BurgerConstructor: FC = () => {
         <>
             <div className='mb-25'></div>
             <div className='ml-10'>
-                <div className={style.burger} ref={dropTarget}>
+                <div className={style.burger} ref={dropTarget}  data-cy={'constructor'}>
                     <div className='pl-8 mb-4'>
                         <ConstructorElement type="top"
                             isLocked={true}
@@ -81,10 +82,10 @@ const BurgerConstructor: FC = () => {
                     </div>
 
                     <div className={`${style.wrapperCreateOrder} mt-10`}>
-                        <div className={style.createOrder}>
-                            <span className='text text_type_digits-medium'>{sumOrder}</span>
+                        <div className={style.createOrder} data-cy={'place-order'}>
+                            <span className='text text_type_digits-medium' data-cy={'sum-order'}>{sumOrder}</span>
                             <CurrencyIcon className='mr-10' type="primary" />
-                            <Button htmlType="button" type="primary" size="large" onClick={() => createOrder()}>
+                            <Button htmlType="button" type="primary" size="large" onClick={() => createOrder()} data-cy='submitConstructorForm'>
                                 Оформить заказ
                             </Button >
                         </div>

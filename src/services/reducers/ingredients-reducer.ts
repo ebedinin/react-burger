@@ -41,3 +41,4 @@ export type TIngredientAtions = ReturnType<TActionCreators[keyof TActionCreators
 export const { getLoading, getError, getIngredients } = sliceIngredients.selectors;
 export const reducerIngredient = sliceIngredients.reducer;
 export { sliceIngredients }
+export {initialState}

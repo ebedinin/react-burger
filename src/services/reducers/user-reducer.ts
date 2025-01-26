@@ -125,3 +125,4 @@ export const { getAuthorizationProcess, getErrorAuthorization, getRegistrationPr
     getErrorGetUser, getUser, getSendCodeResetPassword } = sliceUser.selectors;
 export const reducerUser = sliceUser.reducer;
 export { sliceUser }
+export {initialState}

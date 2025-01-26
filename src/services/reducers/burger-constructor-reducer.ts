@@ -17,7 +17,7 @@ const sliceBurgerConstructor = createSlice({
     initialState,
     reducers: {
         addIngredient: (state: TState, action: PayloadAction<TBurgerConstructorIngredient>) => {
-            state.data = [...state.data, { ...action.payload, uid: uuidv4() }]
+            state.data = [...state.data, { ...action.payload}]
         },
         delIngredient: (state: TState, action: PayloadAction<{ uid: string }>) => {
             state.data = state.data.filter(item => item.uid !== action.payload.uid)
@@ -56,3 +56,4 @@ export const { getBurgerIngredients, getBurgerBun, getBurgerAllIngredients } = s
 export const reducerBurgerConstructor = sliceBurgerConstructor.reducer;
 export const { addIngredient, delIngredient, changeIngredient, addBun, delBun } = sliceBurgerConstructor.actions;
 export { sliceBurgerConstructor }
+export {initialState}
