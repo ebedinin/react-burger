@@ -27,10 +27,13 @@ const Modal:FC<TModalProps> = (props) => {
     return ReactDOM.createPortal(
         <div className={style.root}>
             <ModalOverlay close={close}>
-                <div className={`p-10 ${style.modal}`}>
-                    <div className={style.header}>
-                        <div className={`text text_type_main-large ${style.text}`}>{title}</div><CloseIcon className={style.close} type="primary" onClick={close} />
-                    </div>
+                <div className={`p-10 ${style.modal}`}  data-cy="modalContainer">
+                    <div className={style.header} >
+                        <div className={`text text_type_main-large ${style.text}`}>{title}</div>
+                            <span data-cy="modalCloseIcon" onClick={close}>
+                                <CloseIcon className={style.close} type="primary"  />
+                            </span>
+                        </div>
                     {children}
                 </div>
             </ModalOverlay>

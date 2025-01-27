@@ -29,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress": "npx cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -51,7 +52,9 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
+    "cypress": "^14.0.0",
     "eslint": "^8.57.1",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-react": "^7.37.3",
     "globals": "^15.14.0",
     "prettier": "3.3.3"

@@ -25,3 +25,4 @@ export const { getIngredienttDetail } = sliceIngredientDetail.selectors;
 export const reducerIngredientDetail = sliceIngredientDetail.reducer;
 export const { setIngredienttDetail } = sliceIngredientDetail.actions;
 export { sliceIngredientDetail }
+export {initialState}

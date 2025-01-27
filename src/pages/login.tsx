@@ -43,6 +43,7 @@ const Login: FC = () => {
                     size={'default'}
                     extraClass="mb-5"
                     onChange={onChangeForm}
+                    data-cy="loginSubmit"
                 />
                 <PasswordInput
                     value={formLogin.password}
@@ -50,8 +51,9 @@ const Login: FC = () => {
                     extraClass="mb-5"
                     icon="ShowIcon"
                     onChange={onChangeForm}
+                    data-cy="pwdSubmit"
                 />
-                <Button htmlType="submit" type="primary" size="small" extraClass="ml-2" >
+                <Button htmlType="submit" type="primary" size="small" extraClass="ml-2" data-cy="submitLoginForm">
                     Войти
                 </Button>
             </form>

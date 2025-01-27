@@ -10,7 +10,7 @@ const OrderDetails:FC = ()=>{
     }
     return (
         <div className='mt-8'>
-            <div className='text text_type_digits-large'><span >{order.number}</span></div>
+            <div className='text text_type_digits-large'><span data-cy='orderNumber'>{order.number}</span></div>
             <div className='mt-8 text text_type_main-medium'><span >идентификатор заказа</span></div>
             <div className='mt-15 mb-15'><CheckMarkIcon type="success"  /></div>
             <div className='mb-2 text text_type_main-small'><span >Ваш заказ начали готовить</span></div>

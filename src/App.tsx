@@ -89,7 +89,7 @@ const App: FC = () => {
           <Route
             path='/ingredients/:ingredientId'
             element={
-              <Modal root={modalRoot} title={'Детали ингридиента'} close={handleModalClose}>
+              <Modal root={modalRoot} title={'Детали ингредиента'} close={handleModalClose}>
                 <IngredientDetails />
               </Modal>
             }
